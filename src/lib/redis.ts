@@ -71,16 +71,16 @@ export const cacheTTL = {
 /**
  * Hash function for creating consistent cache keys from parameters
  */
-const hashParams = (params: Record<string, any>): string => {
+const hashParams = (params: ShiftSearchParams | Record<string, unknown>): string => {
   const sortedParams = Object.keys(params)
     .sort()
     .reduce((result, key) => {
-      const value = params[key]
+      const value = params[key as keyof typeof params]
       if (value !== undefined && value !== null && value !== '') {
         result[key] = value
       }
       return result
-    }, {} as Record<string, any>)
+    }, {} as Record<string, unknown>)
   
   return createHash('sha256').update(JSON.stringify(sortedParams)).digest('hex')
 }

@@ -175,7 +175,7 @@ export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupPr
 
       {/* Date groups */}
       <div className="overflow-hidden">
-        {shiftsByDate.map(({ date, shifts: dateShifts }, index) => (
+        {shiftsByDate.map(({ date, shifts: dateShifts }) => (
           <DateGroup
             key={date}
             date={date}
