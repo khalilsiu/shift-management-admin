@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { parseISO, format } from 'date-fns'
 import { toProperCase } from '@/lib/utils/toProperCase'
+import { typography } from '@/lib/design-system'
 import type { Shift } from '@/types/shift'
 
 interface ShiftCardStaticProps {
@@ -29,26 +30,26 @@ const ShiftCardStaticComponent = ({ shift, children }: ShiftCardStaticProps) => 
   return (
     <div className="flex-1">
       <div>
-        <div className="text-xs font-medium text-gray-900 mb-1">
-          {format(parseISO(shift.start_time), 'HH:mm')} - {format(parseISO(shift.end_time), 'HH:mm')}
+        <div className={`${typography.body.small} text-gray-900 mb-1`}>
+          {format(parseISO(shift.start_time), 'h:mmaaa')} - {format(parseISO(shift.end_time), 'h:mmaaa')}
         </div>
 
         <div className="flex items-center space-x-2 mb-2">
-          <span className="text-xs text-gray-900 font-medium">
+          <span className={`${typography.body.small} text-gray-900`}>
             {shift.caregiver_name}
           </span>
         </div>
         
         <div className="flex items-center space-x-2 mb-2">
           <div className={`w-2 h-2 rounded-full ${shift.role === "ST" ? "bg-cyan-500" : "bg-pink-300"}`}></div>
-          <span className="text-xs font-medium text-gray-900">
+          <span className={`${typography.body.small} text-gray-900`}>
             {shift.role}
           </span>
         </div>
 
         <div className="flex items-center justify-between">
           {!isPending && (
-            <div className={`inline-flex items-center px-3 py-1 rounded text-xs font-medium ${getStatusColor()}`}>
+            <div className={`inline-flex items-center px-3 py-1 rounded ${typography.label.small} ${getStatusColor()}`}>
               <span>{toProperCase(shift.status)}</span>
             </div>
           )}

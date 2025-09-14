@@ -110,16 +110,16 @@ export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupPr
       components.monthCard.mobile,
       components.monthCard.tablet,
       components.monthCard.desktop,
-      'bg-gray-50 border-gray-200 flex-shrink-0'
+      'bg-gray-50 border-gray-200 flex-shrink-0 overflow-hidden'
     )}>
       {/* Month header */}
       <div className={cn(
         'flex items-center justify-between bg-gray-200 rounded-t-lg',
         spacing.card.mobile
       )}>
-        <div className="flex items-center space-x-1">
+        <div className="flex items-start space-x-2">
           <button
-            className="flex items-center space-x-2 hover:bg-gray-100 rounded p-1 transition-colors"
+            className="flex items-center hover:bg-gray-100 rounded p-1 transition-colors flex-shrink-0"
             onClick={handleMonthSelectAll}
             type="button"
             aria-label={`${allPendingSelected ? 'Deselect' : 'Select'} all pending shifts in ${monthLabel}`}
@@ -130,14 +130,16 @@ export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupPr
             ) : (
               <Square className="h-5 w-5 text-gray-400" />
             )}
+          </button>
+          
+          <div className="flex flex-col items-start space-y-1 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-1">
             <h2 className={cn(typography.body.large, 'font-semibold text-gray-900')}>
               {monthLabel}
             </h2>
-          </button>
-          
-          <span className={cn(typography.body.small, 'text-gray-500')}>
-            ({heldShiftsCount} held shift{heldShiftsCount !== 1 ? 's' : ''})
-          </span>
+            <span className={cn(typography.body.small, 'text-gray-900 text-left')}>
+              ({heldShiftsCount} held shift{heldShiftsCount !== 1 ? 's' : ''})
+            </span>
+          </div>
         </div>
 
         {/* Confirm button for month */}
@@ -172,8 +174,8 @@ export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupPr
       </div>
 
       {/* Date groups */}
-      <div>
-        {shiftsByDate.map(({ date, shifts: dateShifts }) => (
+      <div className="overflow-hidden">
+        {shiftsByDate.map(({ date, shifts: dateShifts }, index) => (
           <DateGroup
             key={date}
             date={date}

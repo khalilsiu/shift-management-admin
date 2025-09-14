@@ -49,23 +49,23 @@ export const spacing = {
 export const typography = {
   // Headings
   heading: {
-    h1: 'text-xl sm:text23xl lg:text-3xl font-bold',
-    h2: 'text-lg sm:text-xl lg:text-2xl font-bold',
-    h3: 'text-md sm:text-lg lg:text-xl font-bold',
+    h1: 'text-3xl sm:text-3xl lg:text-3xl font-bold',
+    h2: 'text-2xl sm:text-xl lg:text-2xl font-bold',
+    h3: 'text-xl sm:text-lg lg:text-xl font-bold',
   },
   
   // Body text
   body: {
-    large: 'text-base sm:text-lg',
-    normal: 'text-sm sm:text-base',
-    small: 'text-xs sm:text-sm',
+    large: 'text-lg sm:text-lg',
+    normal: 'text-md sm:text-base',
+    small: 'text-base sm:text-sm',
   },
   
   // Labels and UI text
   label: {
-    large: 'text-sm sm:text-base font-bold',
-    normal: 'text-xs sm:text-sm font-bold',
-    small: 'text-xs font-bold',
+    large: 'text-md sm:text-base font-bold',
+    normal: 'text-sm sm:text-sm font-bold',
+    small: 'text-sm font-bold',
   },
 } as const
 
