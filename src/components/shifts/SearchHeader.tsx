@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useTransition, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { Search, X, Clock, Loader2 } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'
@@ -10,66 +10,71 @@ export const SearchHeader = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [isPending, startTransition] = useTransition()
+  const initialLoad = useRef(true)
+  const isTyping = useRef(false)
 
-  // ✅ Controlled component: Local state for immediate UI updates
   const [searchQuery, setSearchQuery] = useState(() => 
     searchParams.get('caregiver') || ''
   )
   
-  // ✅ Debounced value for URL updates (300ms delay)
-  const debouncedSearchQuery = useDebounce(searchQuery, 300)
+  const debouncedSearchQuery = useDebounce(searchQuery, 400)
   
-  // ✅ Show spinner when user is typing but URL hasn't updated yet
-  const isSearching = searchQuery !== debouncedSearchQuery
+  // Show spinner when user is typing or URL is updating
+  const isSearching = searchQuery !== debouncedSearchQuery || isPending
   
-  // Derived state
   const hasSearchQuery = searchQuery.length > 0
 
-  // Create query string helper
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString())
+  useEffect(() => {
+    if (initialLoad.current) {
+      initialLoad.current = false
+      return
+    }
+
+    // use transition to async update the url
+    startTransition(() => {
+      const params = new URLSearchParams()
       
-      if (value) {
-        params.set(name, value)
-      } else {
-        params.delete(name)
+      if (debouncedSearchQuery) {
+        params.set('caregiver', debouncedSearchQuery)
       }
       
-      return params.toString()
-    },
-    [searchParams]
-  )
-
-  // ✅ Update URL when debounced value changes
-  useEffect(() => {
-    const queryString = createQueryString('caregiver', debouncedSearchQuery)
-    const newUrl = queryString ? `${pathname}?${queryString}` : pathname
-    
-    // Only update URL if it's different from current
-    const currentUrl = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
-    
-    if (newUrl !== currentUrl) {
+      const queryString = params.toString()
+      const newUrl = queryString ? `${pathname}?${queryString}` : pathname
+      
+      // use router.replace for better performance
       router.replace(newUrl, { scroll: false })
-    }
-  }, [debouncedSearchQuery, pathname, searchParams, router, createQueryString])
+    })
+  }, [debouncedSearchQuery, pathname, router])
 
-  // ✅ Sync local state when URL changes externally (e.g., browser back/forward)
-  // Only sync when URL changes, not when local state changes
+  // handle external url changes
   useEffect(() => {
-    const urlSearchQuery = searchParams.get('caregiver') || ''
-    setSearchQuery(urlSearchQuery)
-  }, [searchParams])
+    if (!isTyping.current) {
+      const urlSearchQuery = searchParams.get('caregiver') || ''
+      if (urlSearchQuery !== searchQuery) {
+        setSearchQuery(urlSearchQuery)
+      }
+    }
+  }, [searchParams, searchQuery])
 
-  // ✅ Handle input change - immediate local state update
+  // handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    isTyping.current = true
     setSearchQuery(e.target.value)
+    
+    setTimeout(() => {
+      isTyping.current = false
+    }, 100)
   }
 
-  // ✅ Handle clear search
   const handleClearSearch = useCallback(() => {
+    isTyping.current = false
     setSearchQuery('')
-  }, [])
+    
+    startTransition(() => {
+      router.replace(pathname, { scroll: false })
+    })
+  }, [pathname, router])
 
   return (
     <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
@@ -91,11 +96,22 @@ export const SearchHeader = () => {
             Caregiver Name
           </h2>
           <div className="relative">
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
+              {hasSearchQuery && (
+                <button
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  onClick={handleClearSearch}
+                  type="button"
+                  aria-label="Clear search"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+              
               {isSearching ? (
-                <Loader2 className="h-4 w-4 text-blue-500 animate-spin" aria-hidden="true" />
+                <Loader2 className="h-4 w-4 text-blue-500 animate-spin pointer-events-none" aria-hidden="true" />
               ) : (
-                <Search className="h-4 w-4 text-gray-400" aria-hidden="true" />
+                <Search className="h-4 w-4 text-gray-400 pointer-events-none" aria-hidden="true" />
               )}
             </div>
 
@@ -103,24 +119,17 @@ export const SearchHeader = () => {
               type="text"
               className={cn(
                 inputVariants({ size: 'md', width: 'fixed' }),
-                'pl-10 pr-10'
+                'pl-4 pr-16' 
               )}
               placeholder="Search"
               value={searchQuery}
               onChange={handleInputChange}
               aria-label="Search shifts by caregiver name"
+              autoComplete="off"
+              spellCheck="false"
+              autoCapitalize="off"
+              autoCorrect="off"
             />
-
-            {hasSearchQuery && (
-              <button
-                className="absolute inset-y-0 right-0 pr-3 flex items-center hover:text-gray-600 transition-colors"
-                onClick={handleClearSearch}
-                type="button"
-                aria-label="Clear search"
-              >
-                <X className="h-4 w-4 text-gray-400 hover:text-gray-600" />
-              </button>
-            )}
           </div>
         </div>
       </div>
