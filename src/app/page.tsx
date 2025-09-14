@@ -1,26 +1,46 @@
+import { Suspense } from 'react'
+import { SearchHeader } from "@/components/shifts/SearchHeader"
 import { ShiftsServerWrapper } from "@/components/shifts/ShiftsServerWrapper"
+import { ShiftsSkeleton } from "@/components/ui/ShiftsSkeleton"
 import { getShifts } from "@/lib/data/shifts"
 import { ShiftSearchParams } from "@/types/shift"
 
-// Main page uses RSC to fetch data directly from file system
-export default async function Home({
+// Separate RSC component for data fetching
+async function ShiftsDataLoader({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  // Await searchParams and convert to our ShiftSearchParams type
   const params = await searchParams
   const filters: ShiftSearchParams = {
-    caregiver: typeof params.caregiver === 'string' ? params.caregiver : undefined,
-    status: params.status === 'PENDING' || params.status === 'CONFIRMED' || params.status === 'DECLINED' 
-      ? params.status : undefined,
-    role: params.role === 'ST' || params.role === 'EN' ? params.role : undefined,
-    date_from: typeof params.date_from === 'string' ? params.date_from : undefined,
-    date_to: typeof params.date_to === 'string' ? params.date_to : undefined,
+    caregiver: typeof params.caregiver === 'string' ? params.caregiver : undefined
   }
 
-  // Fetch data directly from file system (RSC best practice)
   const shiftsData = await getShifts(filters)
   
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`Shifts loaded from ${shiftsData.source} (${shiftsData.filtered} results)`)
+  }
+  
   return <ShiftsServerWrapper initialShifts={shiftsData.data} />
+}
+
+
+// Main page with progressive loading
+export default function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* SearchHeader renders immediately */}
+      <SearchHeader />
+      
+      {/* Shifts data loads progressively */}
+      <Suspense fallback={<ShiftsSkeleton />}>
+        <ShiftsDataLoader searchParams={searchParams} />
+      </Suspense>
+    </div>
+  )
 }
