@@ -1,7 +1,6 @@
+import React from 'react'
 import { Clock } from 'lucide-react'
-import { cn } from '@/lib/design-system/variants'
-import { containerVariants } from '@/lib/design-system/variants'
-import { typography, spacing } from '@/lib/design-system/tokens'
+import { cn, containerVariants, typography, spacing } from '@/lib/design-system'
 
 interface SearchHeaderStaticProps {
   children: React.ReactNode 

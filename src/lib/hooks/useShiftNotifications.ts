@@ -1,8 +1,9 @@
 'use client'
 
 import { useCallback } from 'react'
-import { useNotifications } from '@/lib/contexts/NotificationContext'
-import { toProperCase } from '../utils/toProperCase'
+import { useNotifications } from '../providers'
+import { toProperCase } from '../utils'
+
 
 
 

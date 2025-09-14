@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
-import { SearchHeader } from "@/components/shifts/SearchHeader"
-import { ShiftsServerWrapper } from "@/components/shifts/ShiftsServerWrapper"
+import { SearchHeader, ShiftsServerWrapper } from "@/components/shifts"
 import { ShiftsSkeleton } from "@/components/ui/ShiftsSkeleton"
 import { NotificationTester } from "@/components/dev/NotificationTester"
 import { ErrorTrigger } from "@/components/dev/ErrorTrigger"
@@ -37,7 +36,6 @@ export default function Home({
 }) {
   return (
     <div className="min-h-screen bg-white">
-      {/* SearchHeader with Suspense for useSearchParams */}
       <Suspense fallback={
         <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
           <div className="px-4 py-6">

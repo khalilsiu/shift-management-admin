@@ -1,9 +1,9 @@
 'use client'
 import { useRef, useEffect } from 'react'
 import { Provider } from 'react-redux'
-import { makeStore, AppStore } from './store'
+import { makeStore, AppStore } from '../store/store'
 import { Shift } from '@/types/shift'
-import { setInitialShifts } from './features/shiftsSlice'
+import { setInitialShifts } from '../store/shiftsSlice'
 
 interface StoreProviderProps {
   children: React.ReactNode

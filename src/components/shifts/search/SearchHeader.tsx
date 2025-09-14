@@ -1,7 +1,7 @@
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { SearchHeaderStatic } from './SearchHeaderStatic'
 import { SearchInput } from './SearchInput'
-import { cn, inputVariants } from '@/lib/design-system/variants'
+import { cn, inputVariants } from '@/lib/design-system'
 
 
 export const SearchHeader = () => {

@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns'
-import { ShiftCard } from './ShiftCard'
+import { ShiftCard } from '../shift-card'
 import type { Shift } from '@/types/shift'
 
 interface DateGroupProps {

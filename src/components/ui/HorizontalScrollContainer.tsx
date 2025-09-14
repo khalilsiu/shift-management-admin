@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useHorizontalScroll } from '@/lib/hooks/useHorizontalScroll'
 
 interface HorizontalScrollContainerProps {

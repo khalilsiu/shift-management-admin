@@ -2,10 +2,10 @@
 
 import { createPortal } from 'react-dom'
 import { useEffect, useState } from 'react'
-import { useNotifications } from '@/lib/contexts/NotificationContext'
 import { Toast } from './Toast'
 import { ErrorBoundary } from './ErrorBoundary'
 import { cn } from '@/lib/design-system'
+import { useNotifications } from '@/lib/providers/NotificationContext'
 
 // Uses React Portal for proper z-index layering
 export const ToastContainer = () => {

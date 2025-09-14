@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Bundle optimization for tree shaking (Turbopack compatible)
+  experimental: {
+    optimizePackageImports: [
+      'lucide-react',
+      'date-fns'
+    ],
+  },
 };
 
 export default nextConfig;

@@ -1,5 +1,6 @@
-import { MonthGroup } from '@/components/shifts/MonthGroup'
+
 import { cn, containerVariants, spacing, layout } from '@/lib/design-system'
+import { MonthGroup } from '../shifts'
 
 /**
  * Generate skeleton data that matches real structure

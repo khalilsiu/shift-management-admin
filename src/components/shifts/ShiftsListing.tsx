@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react'
 import { useShifts } from '@/lib/hooks/useShifts'
-import { MonthGroup } from './MonthGroup'
+import { MonthGroup } from './month-group'
 import { HorizontalScrollContainer } from '@/components/ui/HorizontalScrollContainer'
 import { format, parseISO } from 'date-fns'
 import { Loader2, AlertCircle } from 'lucide-react'

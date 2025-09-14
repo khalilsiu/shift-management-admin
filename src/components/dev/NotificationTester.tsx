@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useNotifications } from '@/lib/contexts/NotificationContext'
+
 import { useShiftNotifications } from '@/lib/hooks/useShiftNotifications'
 import { cn, buttonVariants } from '@/lib/design-system'
+import { useNotifications } from '@/lib/providers'
 
 /**
  * Development Component for Testing All Notification Types

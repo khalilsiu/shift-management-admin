@@ -1,7 +1,7 @@
 'use client'
 
-import { ShiftsListing } from '@/components/shifts/ShiftsListing'
-import { StoreProvider } from '@/lib/StoreProvider'
+import { ShiftsListing } from './ShiftsListing'
+import { StoreProvider } from '@/lib/providers/StoreProvider'
 import { Shift } from '@/types/shift'
 
 interface Props {

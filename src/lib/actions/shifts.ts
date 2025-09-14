@@ -27,7 +27,7 @@ const writeShiftsFile = (data: { shifts: Shift[] }): void => {
  * Invalidate all relevant caches after shift updates
  * Uses comprehensive cache invalidation patterns
  */
-const invalidateShiftCaches = async (shift?: Shift): Promise<void> => {
+const invalidateShiftCaches = async (): Promise<void> => {
   try {
     const patterns = [
       'shifts:*',    // All shift caches
@@ -53,12 +53,45 @@ export const updateShiftStatus = async (
   updatedBy: string = 'admin_001'
 ) => {
   try {
+    // Input validation
+    if (!shiftId?.trim()) {
+      return {
+        success: false,
+        error: 'Shift ID is required'
+      }
+    }
+
+    if (!['CONFIRMED', 'DECLINED'].includes(status)) {
+      return {
+        success: false,
+        error: 'Invalid status. Must be CONFIRMED or DECLINED'
+      }
+    }
+
+    if (!updatedBy?.trim()) {
+      return {
+        success: false,
+        error: 'Updated by field is required'
+      }
+    }
+    
     const data = readShiftsFile()
     
     const shiftIndex = data.shifts.findIndex(shift => shift.id === shiftId)
     
     if (shiftIndex === -1) {
-      throw new Error(`Shift with ID ${shiftId} not found`)
+      return {
+        success: false,
+        error: `Shift with ID ${shiftId} not found`
+      }
+    }
+
+    // Check if shift is already in the requested status
+    if (data.shifts[shiftIndex].status === status) {
+      return {
+        success: false,
+        error: `Shift is already ${status.toLowerCase()}`
+      }
     }
 
     // Update the shift
@@ -72,7 +105,7 @@ export const updateShiftStatus = async (
     writeShiftsFile(data)
     
     // Invalidate all relevant caches after update 
-    await invalidateShiftCaches(data.shifts[shiftIndex])
+    await invalidateShiftCaches()
     
     // Revalidate the page to refresh RSC data
     revalidatePath('/')

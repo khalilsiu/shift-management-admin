@@ -1,5 +1,5 @@
 import { useCallback, useOptimistic, useTransition } from 'react'
-import { useAppDispatch, useAppSelector } from '@/lib/hooks'
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import {
   toggleShiftSelection,
   selectAllShifts,
@@ -9,7 +9,7 @@ import {
   selectShifts,
   selectSelectedShifts,
   selectError,
-} from '@/lib/features/shiftsSlice'
+} from '@/lib/store/shiftsSlice'
 import { updateShiftStatus, batchUpdateShifts } from '@/lib/actions/shifts'
 import { useShiftNotifications } from './useShiftNotifications'
 import type { Shift } from '@/types/shift'

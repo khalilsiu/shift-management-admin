@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useTransition, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { Search, X, Loader2 } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'
-import { cn, inputVariants } from '@/lib/design-system/variants'
+import { cn, inputVariants } from '@/lib/design-system'
 
 export const SearchInput = () => {
   const router = useRouter()

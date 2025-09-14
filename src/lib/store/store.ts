@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import shiftsReducer from './features/shiftsSlice'
+import shiftsReducer from './shiftsSlice'
 
 export const makeStore = () => {
   return configureStore({
