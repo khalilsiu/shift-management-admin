@@ -1,4 +1,4 @@
-import { useCallback, useOptimistic, useTransition } from 'react'
+import { useOptimistic, useTransition } from 'react'
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import {
   toggleShiftSelection,
@@ -17,7 +17,7 @@ import type { Shift } from '@/types/shift'
 export const useShifts = () => {
   const dispatch = useAppDispatch()
   const [isPending, startTransition] = useTransition()
-  
+
   // Notification hooks for user feedback
   const {
     notifyShiftUpdated,
@@ -27,7 +27,7 @@ export const useShifts = () => {
     notifyPartialBatchUpdate,
     notifyOptimisticUpdate,
   } = useShiftNotifications()
-  
+
   // RTK selectors for client state only
   const shifts = useAppSelector(selectShifts)
   const selectedShifts = useAppSelector(selectSelectedShifts)
@@ -62,142 +62,124 @@ export const useShifts = () => {
   )
 
   // Derived state
-  const isShiftSelected = useCallback(
-    (shiftId: string) => selectedShifts.includes(shiftId),
-    [selectedShifts]
-  )
+  const isShiftSelected = (shiftId: string) => selectedShifts.includes(shiftId)
 
-  const canUpdateShift = useCallback(
-    (shiftId: string) => {
-      const shift = optimisticShifts.find(s => s.id === shiftId)
-      return shift?.status === 'PENDING'
-    },
-    [optimisticShifts]
-  )
+  const canUpdateShift = (shiftId: string) => {
+    const shift = optimisticShifts.find(s => s.id === shiftId)
+    return shift?.status === 'PENDING'
+  }
 
   const hasSelectedShifts = selectedShifts.length > 0
   const selectedCount = selectedShifts.length
 
   // Server Action with useOptimistic
-  const handleUpdateShift = useCallback(
-    (shiftId: string, status: 'CONFIRMED' | 'DECLINED', updatedBy: string = 'admin_001') => {
-      // Find shift for notifications
-      const shift = optimisticShifts.find(s => s.id === shiftId)
-      const caregiverName = shift?.caregiver_name || 'Unknown'
-      
-      startTransition(async () => {
-        try {
-          // 1. Show optimistic notification
-          notifyOptimisticUpdate(caregiverName, status)
-          
-          // 2. Optimistic update using React's useOptimistic (inside transition)
-          updateOptimisticShifts({ type: 'update', shiftId, status })
-          
-          dispatch(clearError())
-          
-          // 3. Execute Server Action
-          const result = await updateShiftStatus(shiftId, status, updatedBy)
-          
-          if (!result.success) {
-            dispatch(setError(result.error || 'Failed to update shift'))
-            notifyShiftUpdateError(caregiverName, result.error)
-            // useOptimistic automatically reverts on Server Action completion
-          } else {
-            dispatch(clearSelection())
-            notifyShiftUpdated(caregiverName, status)
-          }
-        } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-          dispatch(setError(errorMessage))
-          notifyShiftUpdateError(caregiverName, errorMessage)
-          // useOptimistic automatically reverts on error
+  const handleUpdateShift = (shiftId: string, status: 'CONFIRMED' | 'DECLINED', updatedBy: string = 'admin_001') => {
+    // Find shift for notifications
+    const shift = optimisticShifts.find(s => s.id === shiftId)
+    const caregiverName = shift?.caregiver_name || 'Unknown'
+
+    startTransition(async () => {
+      try {
+        // 1. Show optimistic notification
+        notifyOptimisticUpdate(caregiverName, status)
+
+        // 2. Optimistic update using React's useOptimistic (inside transition)
+        updateOptimisticShifts({ type: 'update', shiftId, status })
+
+        dispatch(clearError())
+
+        // 3. Execute Server Action
+        const result = await updateShiftStatus(shiftId, status, updatedBy)
+
+        if (!result.success) {
+          dispatch(setError(result.error || 'Failed to update shift'))
+          notifyShiftUpdateError(caregiverName, result.error)
+          // useOptimistic automatically reverts on Server Action completion
+        } else {
+          dispatch(clearSelection())
+          notifyShiftUpdated(caregiverName, status)
         }
-      })
-    },
-    [updateOptimisticShifts, dispatch, startTransition, optimisticShifts, notifyOptimisticUpdate, notifyShiftUpdated, notifyShiftUpdateError]
-  )
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+        dispatch(setError(errorMessage))
+        notifyShiftUpdateError(caregiverName, errorMessage)
+        // useOptimistic automatically reverts on error
+      }
+    })
+  }
 
   // Server Action with useOptimistic
-  const handleBatchUpdate = useCallback(
-    (shiftIds: string[], status: 'CONFIRMED' | 'DECLINED', updatedBy: string = 'admin_001') => {
-      startTransition(async () => {
-        try {
-          // 1. Optimistic update
-          updateOptimisticShifts({ type: 'batchUpdate', shiftIds, status })
-          
-          dispatch(clearError())
-          
-          // 2. Execute Server Action
-          const result = await batchUpdateShifts(shiftIds, status, updatedBy)
-          
-          if (!result.success) {
-            dispatch(setError(result.error || 'Failed to batch update shifts'))
-            notifyBatchUpdateError(shiftIds.length, result.error)
+  const handleBatchUpdate = (shiftIds: string[], status: 'CONFIRMED' | 'DECLINED', updatedBy: string = 'admin_001') => {
+    startTransition(async () => {
+      try {
+        // 1. Optimistic update
+        updateOptimisticShifts({ type: 'batchUpdate', shiftIds, status })
+
+        dispatch(clearError())
+
+        // 2. Execute Server Action
+        const result = await batchUpdateShifts(shiftIds, status, updatedBy)
+
+        if (!result.success) {
+          dispatch(setError(result.error || 'Failed to batch update shifts'))
+          notifyBatchUpdateError(shiftIds.length, result.error)
+        } else {
+          dispatch(clearSelection())
+
+          // Handle partial success
+          if (result.notFound && result.notFound.length > 0) {
+            const successCount = result.updated || 0
+            const failedCount = result.notFound.length
+            notifyPartialBatchUpdate(successCount, failedCount, status)
           } else {
-            dispatch(clearSelection())
-            
-            // Handle partial success
-            if (result.notFound && result.notFound.length > 0) {
-              const successCount = result.updated || 0
-              const failedCount = result.notFound.length
-              notifyPartialBatchUpdate(successCount, failedCount, status)
-            } else {
-              notifyBatchShiftsUpdated(result.updated || shiftIds.length, status)
-            }
+            notifyBatchShiftsUpdated(result.updated || shiftIds.length, status)
           }
-        } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-          dispatch(setError(errorMessage))
-          notifyBatchUpdateError(shiftIds.length, errorMessage)
         }
-      })
-    },
-    [updateOptimisticShifts, dispatch, startTransition, notifyBatchShiftsUpdated, notifyBatchUpdateError, notifyPartialBatchUpdate]
-  )
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+        dispatch(setError(errorMessage))
+        notifyBatchUpdateError(shiftIds.length, errorMessage)
+      }
+    })
+  }
 
   // RTK actions for client-side state only
-  const handleToggleSelection = useCallback(
-    (shiftId: string) => {
-      dispatch(toggleShiftSelection(shiftId))
-    },
-    [dispatch]
-  )
+  const handleToggleSelection = (shiftId: string) => {
+    dispatch(toggleShiftSelection(shiftId))
+  }
 
-  const handleSelectAll = useCallback(
-    (shiftIds: string[]) => {
-      dispatch(selectAllShifts(shiftIds))
-    },
-    [dispatch]
-  )
+  const handleSelectAll = (shiftIds: string[]) => {
+    dispatch(selectAllShifts(shiftIds))
+  }
 
-  const handleClearSelection = useCallback(() => {
+  const handleClearSelection = () => {
     dispatch(clearSelection())
-  }, [dispatch])
+  }
 
-  const handleClearError = useCallback(() => {
+  const handleClearError = () => {
     dispatch(clearError())
-  }, [dispatch])
+  }
 
   return {
     // Optimistic state for RSC server actions
     shifts: optimisticShifts,
     selectedShifts,
     pendingShifts: optimisticShifts.filter(shift => shift.status === 'PENDING'),
-    
+
     // RTK UI states
     isLoading: isPending, // Server Action pending state
     error,
-    
+
     // Derived states
     isShiftSelected,
     canUpdateShift,
     hasSelectedShifts,
     selectedCount,
-    
+
     // Server Actions handlers with useOptimistic
     handleUpdateShift,
     handleBatchUpdate,
-    
+
     // Client-side actions handlers with RTK
     handleToggleSelection,
     handleSelectAll,

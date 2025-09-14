@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { parseISO, format } from 'date-fns'
 import { toProperCase } from '@/lib/utils/toProperCase'
 import type { Shift } from '@/types/shift'
@@ -9,7 +10,7 @@ interface ShiftCardStaticProps {
 }
 
 
-export const ShiftCardStatic = ({ shift, children }: ShiftCardStaticProps) => {
+const ShiftCardStaticComponent = ({ shift, children }: ShiftCardStaticProps) => {
   const isPending = shift.status === 'PENDING'
 
   const getStatusColor = () => {
@@ -58,3 +59,6 @@ export const ShiftCardStatic = ({ shift, children }: ShiftCardStaticProps) => {
     </div>
   )
 }
+
+// Memoized ShiftCardStatic - only re-renders when shift data changes
+export const ShiftCardStatic = memo(ShiftCardStaticComponent)

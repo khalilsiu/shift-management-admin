@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { format, parseISO } from 'date-fns'
 import { ShiftCard } from '../shift-card'
 import type { Shift } from '@/types/shift'
@@ -7,7 +8,7 @@ interface DateGroupProps {
   shifts: Shift[]
 }
 
-export const DateGroup = ({ date, shifts }: DateGroupProps) => {
+const DateGroupComponent = ({ date, shifts }: DateGroupProps) => {
   const formattedDate = format(parseISO(date), 'dd MMMM')
   
   const sortedShifts = [...shifts].sort((a, b) => 
@@ -33,3 +34,6 @@ export const DateGroup = ({ date, shifts }: DateGroupProps) => {
     </div>
   )
 }
+
+// Memoized DateGroup - only re-renders when date or shifts change
+export const DateGroup = memo(DateGroupComponent)

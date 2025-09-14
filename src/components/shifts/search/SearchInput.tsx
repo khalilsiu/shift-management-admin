@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useTransition, useRef } from 'react'
+import { useState, useEffect, useTransition, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { Search, X, Loader2 } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'

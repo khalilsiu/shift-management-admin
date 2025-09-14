@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react'
+import { createContext, useContext, useState, ReactNode } from 'react'
 import type { Notification, NotificationContextType } from '@/types/notification'
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined)
@@ -15,14 +15,14 @@ export const NotificationProvider = ({ children }: NotificationProviderProps) =>
   /**
    * Remove a specific notification by ID
    */
-  const removeNotification = useCallback((id: string) => {
+  const removeNotification = (id: string) => {
     setNotifications(prev => prev.filter(notification => notification.id !== id))
-  }, [])
+  }
 
   /**
    * Add a new notification with auto-dismiss functionality
    */
-  const addNotification = useCallback((notification: Omit<Notification, 'id'>) => {
+  const addNotification = (notification: Omit<Notification, 'id'>) => {
     const id = `notification-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
     const newNotification: Notification = {
       id,
@@ -38,14 +38,14 @@ export const NotificationProvider = ({ children }: NotificationProviderProps) =>
         removeNotification(id)
       }, newNotification.duration)
     }
-  }, [removeNotification])
+  }
 
   /**
    * Clear all notifications
    */
-  const clearAllNotifications = useCallback(() => {
+  const clearAllNotifications = () => {
     setNotifications([])
-  }, [])
+  }
 
   const contextValue: NotificationContextType = {
     notifications,

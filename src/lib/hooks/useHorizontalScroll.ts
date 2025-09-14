@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 /**
  * Custom hook for horizontal scroll with navigation
@@ -10,7 +10,7 @@ export const useHorizontalScroll = () => {
   const [isScrollable, setIsScrollable] = useState(false)
 
   // Check scroll position and update navigation state
-  const updateScrollState = useCallback(() => {
+  const updateScrollState = () => {
     const container = scrollContainerRef.current
     if (!container) return
 
@@ -20,10 +20,10 @@ export const useHorizontalScroll = () => {
     setCanScrollLeft(scrollLeft > 0)
     setCanScrollRight(scrollLeft < maxScrollLeft)
     setIsScrollable(scrollWidth > clientWidth)
-  }, [])
+  }
 
   // Scroll to left
-  const scrollLeft = useCallback(() => {
+  const scrollLeft = () => {
     const container = scrollContainerRef.current
     if (!container) return
 
@@ -32,10 +32,10 @@ export const useHorizontalScroll = () => {
       left: -scrollAmount,
       behavior: 'smooth'
     })
-  }, [])
+  }
 
   // Scroll to right
-  const scrollRight = useCallback(() => {
+  const scrollRight = () => {
     const container = scrollContainerRef.current
     if (!container) return
 
@@ -44,7 +44,7 @@ export const useHorizontalScroll = () => {
       left: scrollAmount,
       behavior: 'smooth'
     })
-  }, [])
+  }
 
   // Set up scroll event listener
   useEffect(() => {
