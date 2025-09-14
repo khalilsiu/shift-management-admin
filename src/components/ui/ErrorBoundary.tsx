@@ -22,9 +22,9 @@ interface State {
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    this.state = { 
+    this.state = {
       hasError: false,
-      resetKeys: props.resetKeys 
+      resetKeys: props.resetKeys
     }
   }
 
@@ -42,9 +42,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Log error to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.error('ErrorBoundary caught an error:', error, errorInfo)
-    }
+    console.error('ErrorBoundary caught an error:', error, errorInfo)
 
     // Call custom error handler if provided
     this.props.onError?.(error, errorInfo)
@@ -89,13 +87,13 @@ export class ErrorBoundary extends Component<Props, State> {
               <div>
                 <h2 className="text-lg font-semibold text-red-800">Something went wrong</h2>
                 <p className="text-sm text-red-600 mt-1">
-                  {process.env.NODE_ENV === 'development' && this.state.error
+                  {this.state.error
                     ? this.state.error.message
                     : 'An unexpected error occurred. Please try again.'}
                 </p>
               </div>
             </div>
-            
+
             <div className="flex space-x-3 mb-4">
               <button
                 onClick={this.handleRetry}
@@ -108,7 +106,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Try Again
               </button>
-              
+
               <button
                 onClick={() => window.location.href = '/'}
                 className={cn(
@@ -120,8 +118,8 @@ export class ErrorBoundary extends Component<Props, State> {
                 Go Home
               </button>
             </div>
-            
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+
+            {this.state.error && (
               <details className="w-full">
                 <summary className="text-sm text-red-600 cursor-pointer hover:text-red-800 font-medium">
                   Error Details (Development)

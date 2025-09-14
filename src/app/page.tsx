@@ -52,10 +52,10 @@ export default function Home({
         <ShiftsDataLoader searchParams={searchParams} />
       </Suspense>
       
-      {/* Development-only testing tools */}
+      {/* Development-only testing tools, available in production for testing purpose */}
       <NotificationTester />
       
-      {/* Error Boundary test trigger wrapped in Error Boundary */}
+      {/* Error Boundary test trigger wrapped in Error Boundary, available in production for testing purpose */}
       <ErrorBoundary>
         <ErrorTrigger />
       </ErrorBoundary>

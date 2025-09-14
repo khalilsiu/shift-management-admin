@@ -6,10 +6,7 @@ import { useShiftNotifications } from '@/lib/hooks/useShiftNotifications'
 import { cn, buttonVariants } from '@/lib/design-system'
 import { useNotifications } from '@/lib/providers'
 
-/**
- * Development Component for Testing All Notification Types
- * Only visible in development mode
- */
+// Development component to trigger Error Boundary UI (for test purpose, will be in production)
 export const NotificationTester = () => {
   const { addNotification, clearAllNotifications } = useNotifications()
   const {
@@ -22,11 +19,6 @@ export const NotificationTester = () => {
   } = useShiftNotifications()
   
   const [isExpanded, setIsExpanded] = useState(false)
-
-  // Only show in development
-  if (process.env.NODE_ENV !== 'development') {
-    return null
-  }
 
   const handleTestBasicNotifications = () => {
     // Test all basic notification types

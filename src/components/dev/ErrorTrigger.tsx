@@ -3,24 +3,15 @@
 import { useState } from 'react'
 import { cn, buttonVariants } from '@/lib/design-system'
 
-/**
- * Simple component that throws an error when triggered
- */
+
 const ErrorThrowingComponent = () => {
   throw new Error('This is a test error to show Error Boundary UI')
 }
 
-/**
- * Development component to trigger Error Boundary UI
- * Only visible in development mode
- */
+// Development component to trigger Error Boundary UI (for test purpose, will be in production)
 export const ErrorTrigger = () => {
   const [shouldThrowError, setShouldThrowError] = useState(false)
 
-  // Only show in development
-  if (process.env.NODE_ENV !== 'development') {
-    return null
-  }
 
   const handleTriggerError = () => {
     setShouldThrowError(true)
