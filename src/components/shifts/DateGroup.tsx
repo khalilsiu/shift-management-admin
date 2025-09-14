@@ -1,5 +1,3 @@
-'use client'
-
 import { format, parseISO } from 'date-fns'
 import { ShiftCard } from './ShiftCard'
 import type { Shift } from '@/types/shift'
@@ -12,21 +10,18 @@ interface DateGroupProps {
 export const DateGroup = ({ date, shifts }: DateGroupProps) => {
   const formattedDate = format(parseISO(date), 'dd MMMM')
   
-  // Sort shifts by start time
   const sortedShifts = [...shifts].sort((a, b) => 
     a.start_time.localeCompare(b.start_time)
   )
 
   return (
     <div>
-      {/* Date header */}
       <div className="bg-gray-100 p-1">
         <h3 className="text-xs font-medium text-gray-600">
           {formattedDate}
         </h3>
       </div>
 
-      {/* Shifts for this date */}
       <div>
         {sortedShifts.map((shift) => (
           <ShiftCard

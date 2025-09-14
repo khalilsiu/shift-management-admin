@@ -6,7 +6,9 @@ import { DateGroup } from './DateGroup'
 import { ShiftCard } from './ShiftCard'
 import { useShifts } from '@/lib/hooks/useShifts'
 import { CheckSquare, Square } from 'lucide-react'
-import { cn, cardVariants, buttonVariants, typography, spacing, components } from '@/lib/design-system'
+import { cn } from '@/lib/design-system/variants'
+import { cardVariants, buttonVariants } from '@/lib/design-system/variants'
+import { typography, spacing, components } from '@/lib/design-system/tokens'
 import type { Shift } from '@/types/shift'
 
 interface MonthGroupProps {
@@ -16,9 +18,7 @@ interface MonthGroupProps {
 }
 
 // Skeleton component that matches exact MonthGroup structure
-const MonthGroupSkeleton = ({ monthKey }: { monthKey: string }) => {
-  const monthLabel = format(parseISO(`${monthKey}-01`), 'MMMM yyyy')
-  
+const MonthGroupSkeleton = () => {
   return (
     <div className={cn(
       cardVariants({ shadow: 'sm' }),
@@ -52,13 +52,7 @@ const MonthGroupSkeleton = ({ monthKey }: { monthKey: string }) => {
 }
 
 export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupProps) => {
-  // Return skeleton if loading
-  if (isLoading) {
-    return <MonthGroupSkeleton monthKey={monthKey} />
-  }
-
   const { handleSelectAll, handleClearSelection, selectedShifts, handleBatchUpdate } = useShifts()
-  
   const monthLabel = format(parseISO(`${monthKey}-01`), 'MMMM yyyy')
   
   // Group shifts by date
@@ -78,6 +72,10 @@ export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupPr
       .sort(([dateA], [dateB]) => dateA.localeCompare(dateB))
       .map(([date, dateShifts]) => ({ date, shifts: dateShifts }))
   }, [shifts])
+
+  if (isLoading) {
+    return <MonthGroupSkeleton />
+  }
 
   // Count pending shifts and held shifts
   const pendingShifts = shifts.filter(shift => shift.status === 'PENDING')

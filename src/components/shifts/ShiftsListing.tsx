@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useShifts } from '@/lib/hooks/useShifts'
 import { MonthGroup } from './MonthGroup'
 import { HorizontalScrollContainer } from '@/components/ui/HorizontalScrollContainer'
