@@ -18,7 +18,6 @@ export const StoreProvider = ({ children, initialShifts }: StoreProviderProps) =
     storeRef.current = makeStore()
   }
 
-  // ✅ Move dispatch to useEffect to avoid "setState during render" error
   useEffect(() => {
     if (initialShifts && storeRef.current) {
       storeRef.current.dispatch(setInitialShifts(initialShifts))

@@ -1,9 +1,6 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit'
 import type { Shift } from '@/types/shift'
 
-// RTK now focuses on CLIENT STATE MANAGEMENT only
-// Server Actions handle all mutations and data persistence
-
 // Shifts state interface - search is now handled by URL state
 interface ShiftsState {
   shifts: Shift[]
@@ -20,10 +17,6 @@ const initialState: ShiftsState = {
   lastUpdated: null,
 }
 
-// Search and filtering is now handled by RSC via URL searchParams
-// RTK only manages client-side state (selections, errors, etc.)
-
-// Shifts slice - focused on CLIENT STATE only
 export const shiftsSlice = createSlice({
   name: 'shifts',
   initialState,
