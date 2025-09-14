@@ -170,7 +170,7 @@ export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupPr
                 : `No shifts selected in ${monthLabel}`
             }
           >
-            Confirm {hasSelectedPendingShifts && `(${selectedPendingShifts.length})`}
+            Confirm
           </button>
         )}
       </div>

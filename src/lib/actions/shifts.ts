@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
+import { cacheUtils } from '@/lib/redis'
 import type { Shift } from '@/types/shift'
 
 /**
@@ -23,6 +24,27 @@ const writeShiftsFile = (data: { shifts: Shift[] }): void => {
 }
 
 /**
+ * Invalidate all relevant caches after shift updates
+ * Uses comprehensive cache invalidation patterns
+ */
+const invalidateShiftCaches = async (shift?: Shift): Promise<void> => {
+  try {
+    const patterns = [
+      'shifts:*',    // All shift caches
+    ]
+
+    await cacheUtils.invalidatePatterns(patterns)
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Cache invalidated after shift update')
+    }
+  } catch (error) {
+    console.error('Error invalidating cache:', error)
+    // Don't fail the operation if cache invalidation fails
+  }
+}
+
+/**
  * Server Action: Update single shift status
  */
 export const updateShiftStatus = async (
@@ -31,10 +53,8 @@ export const updateShiftStatus = async (
   updatedBy: string = 'admin_001'
 ) => {
   try {
-    // Read current data
     const data = readShiftsFile()
     
-    // Find and update the shift
     const shiftIndex = data.shifts.findIndex(shift => shift.id === shiftId)
     
     if (shiftIndex === -1) {
@@ -49,12 +69,13 @@ export const updateShiftStatus = async (
       updated_by: updatedBy
     }
 
-    // Write back to file
     writeShiftsFile(data)
+    
+    // Invalidate all relevant caches after update 
+    await invalidateShiftCaches(data.shifts[shiftIndex])
     
     // Revalidate the page to refresh RSC data
     revalidatePath('/')
-    
     return {
       success: true,
       data: data.shifts[shiftIndex]
@@ -77,14 +98,11 @@ export const batchUpdateShifts = async (
   updatedBy: string = 'admin_001'
 ) => {
   try {
-    // Read current data
     const data = readShiftsFile()
     
-    // Track updated shifts
     const updatedShifts: Shift[] = []
     const notFoundIds: string[] = []
     
-    // Update each shift
     shiftIds.forEach(shiftId => {
       const shiftIndex = data.shifts.findIndex(shift => shift.id === shiftId)
       
@@ -105,8 +123,10 @@ export const batchUpdateShifts = async (
       throw new Error(`No shifts found for the provided IDs: ${shiftIds.join(', ')}`)
     }
 
-    // Write back to file
     writeShiftsFile(data)
+    
+    // Invalidate all relevant caches after update
+    await invalidateShiftCaches()
     
     // Revalidate the page to refresh RSC data
     revalidatePath('/')
@@ -119,62 +139,6 @@ export const batchUpdateShifts = async (
     }
   } catch (error) {
     console.error('Error batch updating shifts:', error)
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
-    }
-  }
-}
-
-/**
- * Server Action: Create new shift
- */
-export const createShift = async (formData: FormData) => {
-  try {
-    const caregiverName = formData.get('caregiver_name') as string
-    const role = formData.get('role') as 'ST' | 'EN'
-    const startTime = formData.get('start_time') as string
-    const endTime = formData.get('end_time') as string
-
-    // Validation
-    if (!caregiverName || !role || !startTime || !endTime) {
-      throw new Error('All fields are required')
-    }
-
-    // Read current data
-    const data = readShiftsFile()
-    
-    // Generate new ID
-    const maxId = Math.max(...data.shifts.map(s => parseInt(s.id.replace('shift_', ''))), 0)
-    const newId = `shift_${String(maxId + 1).padStart(3, '0')}`
-    
-    // Create new shift
-    const newShift: Shift = {
-      id: newId,
-      caregiver_name: caregiverName,
-      role,
-      start_time: new Date(startTime).toISOString(),
-      end_time: new Date(endTime).toISOString(),
-      status: 'PENDING',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }
-
-    // Add to data
-    data.shifts.push(newShift)
-    
-    // Write back to file
-    writeShiftsFile(data)
-    
-    // Revalidate the page
-    revalidatePath('/')
-    
-    return {
-      success: true,
-      data: newShift
-    }
-  } catch (error) {
-    console.error('Error creating shift:', error)
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error occurred'

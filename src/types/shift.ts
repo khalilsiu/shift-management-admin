@@ -40,10 +40,6 @@ export interface ShiftUpdateResponse {
 // Search and filter types
 export interface ShiftSearchParams {
   caregiver?: string
-  status?: 'PENDING' | 'CONFIRMED' | 'DECLINED'
-  date_from?: string
-  date_to?: string
-  role?: 'ST' | 'EN'
 }
 
 // Grouped shifts for UI display
