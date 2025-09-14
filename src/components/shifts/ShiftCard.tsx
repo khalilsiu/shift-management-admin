@@ -2,14 +2,51 @@
 
 import { useShifts } from '@/lib/hooks/useShifts'
 import { parseISO, differenceInHours, format } from 'date-fns'
-import { toProperCase } from '@/lib/utils'
+import { toProperCase } from '@/lib/utils/toProperCase'
+import { cn } from '@/lib/design-system'
 import type { Shift } from '@/types/shift'
 
 interface ShiftCardProps {
-  shift: Shift
+  shift?: Shift
+  isLoading?: boolean
 }
 
-export const ShiftCard = ({ shift }: ShiftCardProps) => {
+// Skeleton component that matches exact ShiftCard structure
+const ShiftCardSkeleton = () => {
+  return (
+    <div className="border-b border-gray-200 pb-4 last:border-b-0">
+      {/* Date header skeleton */}
+      <div className="flex items-center justify-between mb-2">
+        <div className="w-24 h-5 bg-gray-300 rounded animate-pulse" />
+      </div>
+      
+      {/* Time and caregiver skeleton */}
+      <div className="space-y-2">
+        <div className="w-32 h-4 bg-gray-300 rounded animate-pulse" />
+        <div className="w-40 h-4 bg-gray-300 rounded animate-pulse" />
+        
+        {/* Role indicator skeleton */}
+        <div className="flex items-center space-x-2 mt-3">
+          <div className="w-2 h-2 bg-gray-300 rounded-full animate-pulse" />
+          <div className="w-8 h-4 bg-gray-300 rounded animate-pulse" />
+        </div>
+        
+        {/* Action buttons skeleton */}
+        <div className="flex space-x-2 mt-3">
+          <div className="w-16 h-8 bg-gray-300 rounded animate-pulse" />
+          <div className="w-16 h-8 bg-gray-300 rounded animate-pulse" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const ShiftCard = ({ shift, isLoading = false }: ShiftCardProps) => {
+  // Return skeleton if loading
+  if (isLoading || !shift) {
+    return <ShiftCardSkeleton />
+  }
+
   const {
     handleUpdateShift,
     handleToggleSelection,

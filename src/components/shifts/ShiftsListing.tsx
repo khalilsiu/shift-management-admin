@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo } from 'react'
 import { useShifts } from '@/lib/hooks/useShifts'
-import { SearchHeader } from './SearchHeader'
 import { MonthGroup } from './MonthGroup'
 import { HorizontalScrollContainer } from '@/components/ui/HorizontalScrollContainer'
 import { format, parseISO } from 'date-fns'
@@ -37,29 +36,22 @@ export const ShiftsListing = () => {
   }, [shifts])
 
   // Mobile-first: Always single column on mobile, horizontal scroll on desktop only
-  const hasMultipleMonths = shiftsByMonth.length > 1
   const shouldUseHorizontalScroll = shiftsByMonth.length >= 3
 
 
   if (isLoading && shifts.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <SearchHeader />
-        <div className="flex items-center justify-center py-20">
-          <div className="flex items-center space-x-3">
-            <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
-            <span className="text-lg text-gray-600">Loading shifts...</span>
-          </div>
+      <div className="flex items-center justify-center py-20">
+        <div className="flex items-center space-x-3">
+          <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
+          <span className="text-lg text-gray-600">Loading shifts...</span>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={cn(layout.height.screen, 'bg-white')}>
-      {/* Fixed search header */}
-      <SearchHeader />
-
+    <div>
       {/* Error message */}
       {error && (
         <div className={cn(

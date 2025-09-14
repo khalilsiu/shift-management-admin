@@ -3,6 +3,7 @@
 import { useMemo } from 'react'
 import { format, parseISO } from 'date-fns'
 import { DateGroup } from './DateGroup'
+import { ShiftCard } from './ShiftCard'
 import { useShifts } from '@/lib/hooks/useShifts'
 import { CheckSquare, Square } from 'lucide-react'
 import { cn, cardVariants, buttonVariants, typography, spacing, components } from '@/lib/design-system'
@@ -11,9 +12,51 @@ import type { Shift } from '@/types/shift'
 interface MonthGroupProps {
   monthKey: string // YYYY-MM format
   shifts: Shift[]
+  isLoading?: boolean
 }
 
-export const MonthGroup = ({ monthKey, shifts }: MonthGroupProps) => {
+// Skeleton component that matches exact MonthGroup structure
+const MonthGroupSkeleton = ({ monthKey }: { monthKey: string }) => {
+  const monthLabel = format(parseISO(`${monthKey}-01`), 'MMMM yyyy')
+  
+  return (
+    <div className={cn(
+      cardVariants({ shadow: 'sm' }),
+      components.monthCard.mobile,
+      components.monthCard.tablet,
+      components.monthCard.desktop,
+      'bg-gray-50 border-gray-200 flex-shrink-0'
+    )}>
+      {/* Month header skeleton */}
+      <div className={cn(
+        'flex items-center justify-between bg-gray-200 rounded-t-lg',
+        spacing.card.mobile
+      )}>
+        <div className="flex items-center space-x-1">
+          <div className="w-5 h-5 bg-gray-300 rounded animate-pulse" />
+          <div className="w-32 h-6 bg-gray-300 rounded animate-pulse" />
+          <div className="w-20 h-4 bg-gray-300 rounded animate-pulse" />
+        </div>
+        <div className="w-20 h-8 bg-gray-300 rounded animate-pulse" />
+      </div>
+
+      {/* Date groups skeleton */}
+      <div className="p-4 space-y-4">
+        {/* Generate 2-4 skeleton shift cards */}
+        {[1, 2, 3].map((i) => (
+          <ShiftCard key={`skeleton-${i}`} isLoading={true} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupProps) => {
+  // Return skeleton if loading
+  if (isLoading) {
+    return <MonthGroupSkeleton monthKey={monthKey} />
+  }
+
   const { handleSelectAll, handleClearSelection, selectedShifts, handleBatchUpdate } = useShifts()
   
   const monthLabel = format(parseISO(`${monthKey}-01`), 'MMMM yyyy')
