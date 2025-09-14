@@ -1,5 +1,47 @@
 # Shift Management Admin - Implementation Highlights
 
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Upstash Redis account (free tier available)
+
+### Setup Instructions
+
+1. **Clone and install dependencies:**
+```bash
+git clone <repository-url>
+cd evercare-test
+npm install
+```
+
+2. **Environment Configuration:**
+Create a `.env.local` file in the root directory:
+```bash
+# Required: Upstash Redis Configuration
+UPSTASH_REDIS_REST_URL=your_upstash_redis_url_here
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token_here
+```
+
+3. **Get Upstash Redis Credentials:**
+   - Sign up at [upstash.com](https://upstash.com) (free tier available)
+   - Create a new Redis database
+   - Copy the REST URL and Token from your database dashboard
+   - Add them to your `.env.local` file
+
+4. **Start the development server:**
+```bash
+npm run dev
+```
+
+5. **Open your browser:**
+Navigate to [http://localhost:3000](http://localhost:3000)
+
+The application will automatically populate with sample shift data and demonstrate all features including Redis caching, search functionality, and shift management.
+
+---
+
 ## Executive Summary
 
 This document outlines the advanced technical implementation of a comprehensive shift management admin panel built with Next.js 15, featuring cutting-edge React patterns, performance optimizations, and full-stack best practices that demonstrate senior-level engineering expertise.
