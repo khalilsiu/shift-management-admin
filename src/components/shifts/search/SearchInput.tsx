@@ -67,14 +67,14 @@ export const SearchInput = () => {
     }, 100)
   }
 
-  const handleClearSearch = useCallback(() => {
+  const handleClearSearch = () => {
     isTyping.current = false
     setSearchQuery('')
     
     startTransition(() => {
       router.replace(pathname, { scroll: false })
     })
-  }, [pathname, router])
+  }
 
   return (
     <div className="relative">

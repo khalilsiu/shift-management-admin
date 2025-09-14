@@ -103,7 +103,7 @@ export const containerVariants = cva(
  */
 export const inputVariants = cva(
   // Base classes
-  'border border-gray-300 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
+  'border border-gray-300 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400',
   {
     variants: {
       size: {
