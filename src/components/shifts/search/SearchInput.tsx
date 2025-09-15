@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useTransition, useRef } from 'react'
+import { useState, useEffect, useTransition, useRef, useCallback } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { Search, X, Loader2 } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'
@@ -11,66 +11,93 @@ export const SearchInput = () => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
-  const initialLoad = useRef(true)
-  const isTyping = useRef(false)
 
-  const [searchQuery, setSearchQuery] = useState(() => 
+  // Refs to track state
+  const initialLoad = useRef(true)
+  const isUserTyping = useRef(false)
+  const lastUrlUpdate = useRef<string | null>(null)
+
+  // Single source of truth for input value - always controlled by local state
+  const [inputValue, setInputValue] = useState(() =>
     searchParams.get('caregiver') || ''
   )
-  
-  const debouncedSearchQuery = useDebounce(searchQuery, 400)
-  
-  // Show spinner when user is typing or URL is updating
-  const isSearching = searchQuery !== debouncedSearchQuery || isPending
-  
-  const hasSearchQuery = searchQuery.length > 0
 
+  const debouncedValue = useDebounce(inputValue, 400)
+
+  // Show spinner when debouncing or URL is updating
+  const isSearching = (inputValue !== debouncedValue) || isPending
+
+  const hasQuery = inputValue.length > 0
+
+  // Update URL when debounced value changes
   useEffect(() => {
     if (initialLoad.current) {
       initialLoad.current = false
       return
     }
 
+    // Prevent infinite loops by checking if this is the same value we just updated
+    const targetValue = debouncedValue || ''
+    if (lastUrlUpdate.current === targetValue) {
+      return
+    }
+
+    lastUrlUpdate.current = targetValue
+
     // use transition to async update the url
     startTransition(() => {
-      const params = new URLSearchParams()
-      
-      if (debouncedSearchQuery) {
-        params.set('caregiver', debouncedSearchQuery)
+      const params = new URLSearchParams(searchParams.toString())
+
+      if (debouncedValue) {
+        params.set('caregiver', debouncedValue)
+      } else {
+        params.delete('caregiver')
       }
-      
+
       const queryString = params.toString()
       const newUrl = queryString ? `${pathname}?${queryString}` : pathname
-      
-      // use router.replace for better performance
+
       router.replace(newUrl, { scroll: false })
     })
-  }, [debouncedSearchQuery, pathname, router])
+  }, [debouncedValue, pathname, router, searchParams])
 
+
+  // Sync URL changes to input
   useEffect(() => {
-    // Only sync URL to local state if user is NOT actively typing
-    if (!isTyping.current) {
-      const urlSearchQuery = searchParams.get('caregiver') || ''
-      if (urlSearchQuery !== searchQuery) {
-        setSearchQuery(urlSearchQuery)
-      }
+    // Don't sync if user is actively typing
+    if (isUserTyping.current) {
+      return
     }
-  }, [searchParams, searchQuery])
 
+    const urlQuery = searchParams.get('caregiver') || ''
+
+    if (urlQuery !== inputValue && lastUrlUpdate.current !== urlQuery) {
+      setInputValue(urlQuery)
+      lastUrlUpdate.current = urlQuery
+    }
+  }, [searchParams, inputValue])
+
+  // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    isTyping.current = true
-    setSearchQuery(e.target.value)
-    
-    // Reset typing flag after a short delay
-    setTimeout(() => {
-      isTyping.current = false
-    }, 100)
+    const newValue = e.target.value
+
+    isUserTyping.current = true
+
+    setInputValue(newValue)
+
+    const timeoutId = setTimeout(() => {
+      isUserTyping.current = false
+    }, 500)
+
+    return () => clearTimeout(timeoutId)
   }
 
+  // handle clear search
   const handleClearSearch = () => {
-    isTyping.current = false
-    setSearchQuery('')
-    
+    isUserTyping.current = false
+    setInputValue('')
+    lastUrlUpdate.current = ''
+
     startTransition(() => {
       router.replace(pathname, { scroll: false })
     })
@@ -79,7 +106,7 @@ export const SearchInput = () => {
   return (
     <div className="relative">
       <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
-        {hasSearchQuery && (
+        {hasQuery && (
           <button
             className={cn(
               "text-gray-400 hover:text-gray-600",
@@ -92,7 +119,7 @@ export const SearchInput = () => {
             <X className="h-4 w-4" />
           </button>
         )}
-        
+
         {isSearching ? (
           <Loader2 className={cn(
             spinnerVariants({ size: 'sm', color: 'primary' }),
@@ -106,15 +133,15 @@ export const SearchInput = () => {
       <input
         type="text"
         className={cn(
-          searchInputVariants({ 
+          searchInputVariants({
             state: isSearching ? 'loading' : 'default',
-            size: 'md', 
-            width: 'fixed' 
+            size: 'md',
+            width: 'fixed'
           }),
-          'pl-4 pr-16' 
+          'pl-4 pr-16'
         )}
-        placeholder="Search"
-        value={searchQuery}
+        placeholder="Search shifts by caregiver name"
+        value={inputValue}
         onChange={handleInputChange}
         aria-label="Search shifts by caregiver name"
         autoComplete="off"

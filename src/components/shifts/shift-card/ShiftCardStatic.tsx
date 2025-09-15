@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { parseISO, format } from 'date-fns'
 import { toProperCase } from '@/lib/utils/toProperCase'
-import { cn, typography, statusBadgeVariants, getStatusStyles } from '@/lib/design-system'
+import { cn, typography, statusBadgeVariants } from '@/lib/design-system'
 import type { Shift } from '@/types/shift'
 
 interface ShiftCardStaticProps {
