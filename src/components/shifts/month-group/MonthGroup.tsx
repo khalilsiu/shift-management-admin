@@ -6,7 +6,7 @@ import { DateGroup } from './DateGroup'
 import { ShiftCard } from '../shift-card'
 import { useShifts } from '@/lib/hooks/useShifts'
 import { CheckSquare, Square } from 'lucide-react'
-import { cn, cardVariants, buttonVariants, typography, spacing, components } from '@/lib/design-system'
+import { cn, monthGroupVariants, buttonVariants, typography, spacing, getAnimationClasses } from '@/lib/design-system'
 import type { Shift } from '@/types/shift'
 
 interface MonthGroupProps {
@@ -19,10 +19,10 @@ interface MonthGroupProps {
 const MonthGroupSkeleton = () => {
   return (
     <div className={cn(
-      cardVariants({ shadow: 'sm' }),
-      components.monthCard.mobile,
-      components.monthCard.tablet,
-      components.monthCard.desktop,
+      monthGroupVariants({ 
+        shadow: 'sm', 
+        width: 'full'
+      }),
       'bg-gray-50 border-gray-200 flex-shrink-0'
     )}>
       {/* Month header skeleton */}
@@ -106,10 +106,10 @@ export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupPr
 
   return (
     <div className={cn(
-      cardVariants({ shadow: 'sm' }),
-      components.monthCard.mobile,
-      components.monthCard.tablet,
-      components.monthCard.desktop,
+      monthGroupVariants({ 
+        shadow: 'sm', 
+        width: 'full'
+      }),
       'bg-gray-50 border-gray-200 flex-shrink-0 overflow-hidden'
     )}>
       {/* Month header */}
@@ -119,7 +119,10 @@ export const MonthGroup = ({ monthKey, shifts, isLoading = false }: MonthGroupPr
       )}>
         <div className="flex items-start space-x-2">
           <button
-            className="flex items-center hover:bg-gray-100 rounded p-1 transition-colors flex-shrink-0"
+            className={cn(
+              "flex items-center hover:bg-gray-100 rounded p-1 flex-shrink-0",
+              getAnimationClasses('transition', 'colors')
+            )}
             onClick={handleMonthSelectAll}
             type="button"
             aria-label={`${allPendingSelected ? 'Deselect' : 'Select'} all pending shifts in ${monthLabel}`}

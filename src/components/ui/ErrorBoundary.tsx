@@ -2,7 +2,7 @@
 
 import React, { Component, ErrorInfo, ReactNode } from 'react'
 import { AlertTriangle, RefreshCw } from 'lucide-react'
-import { cn, buttonVariants } from '@/lib/design-system'
+import { cn, buttonVariants, components } from '@/lib/design-system'
 import { reportClientError } from '@/lib/actions/errorReporting'
 
 interface Props {
@@ -80,9 +80,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
       // Default fallback UI - Centered modal-style overlay
       return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <div className="flex items-center space-x-3 mb-4">
+        <div className={components.layout.modalOverlay}>
+          <div className={components.layout.modalContent}>
+            <div className={cn(components.layout.flexStart, components.layout.sectionSpacing)}>
               <AlertTriangle className="h-8 w-8 text-red-500" />
               <div>
                 <h2 className="text-lg font-semibold text-red-800">Something went wrong</h2>
@@ -94,7 +94,7 @@ export class ErrorBoundary extends Component<Props, State> {
               </div>
             </div>
 
-            <div className="flex space-x-3 mb-4">
+            <div className={cn(components.layout.buttonGroup, components.layout.sectionSpacing)}>
               <button
                 onClick={this.handleRetry}
                 className={cn(

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { cn, buttonVariants } from '@/lib/design-system'
+import { cn, buttonVariants, components } from '@/lib/design-system'
 
 
 const ErrorThrowingComponent = () => {
@@ -22,13 +22,12 @@ export const ErrorTrigger = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-30">
+    <div className={components.layout.fixedBottomRight}>
       {!shouldThrowError ? (
         <button
           onClick={handleTriggerError}
           className={cn(
-            buttonVariants({ variant: 'danger', size: 'sm' }),
-            'bg-red-500 hover:bg-red-600'
+            buttonVariants({ variant: 'danger', size: 'sm' })
           )}
           type="button"
         >

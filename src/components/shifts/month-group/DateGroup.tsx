@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { format, parseISO } from 'date-fns'
 import { ShiftCard } from '../shift-card'
+import { cn, typography } from '@/lib/design-system'
 import type { Shift } from '@/types/shift'
 
 interface DateGroupProps {
@@ -18,7 +19,7 @@ const DateGroupComponent = ({ date, shifts }: DateGroupProps) => {
   return (
     <div>
       <div className="bg-gray-100 p-1">
-        <h3 className="text-xs font-medium text-gray-600">
+        <h3 className={cn(typography.label.small, "text-gray-600")}>
           {formattedDate}
         </h3>
       </div>

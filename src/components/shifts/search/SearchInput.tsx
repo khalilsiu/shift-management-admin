@@ -4,7 +4,7 @@ import { useState, useEffect, useTransition, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { Search, X, Loader2 } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'
-import { cn, inputVariants } from '@/lib/design-system'
+import { cn, searchInputVariants, spinnerVariants, getAnimationClasses } from '@/lib/design-system'
 
 export const SearchInput = () => {
   const router = useRouter()
@@ -81,7 +81,10 @@ export const SearchInput = () => {
       <div className="absolute inset-y-0 right-0 pr-3 flex items-center space-x-2">
         {hasSearchQuery && (
           <button
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className={cn(
+              "text-gray-400 hover:text-gray-600",
+              getAnimationClasses('transition', 'colors')
+            )}
             onClick={handleClearSearch}
             type="button"
             aria-label="Clear search"
@@ -91,7 +94,10 @@ export const SearchInput = () => {
         )}
         
         {isSearching ? (
-          <Loader2 className="h-4 w-4 text-blue-500 animate-spin pointer-events-none" aria-hidden="true" />
+          <Loader2 className={cn(
+            spinnerVariants({ size: 'sm', color: 'primary' }),
+            "pointer-events-none"
+          )} aria-hidden="true" />
         ) : (
           <Search className="h-4 w-4 text-gray-400 pointer-events-none" aria-hidden="true" />
         )}
@@ -100,7 +106,11 @@ export const SearchInput = () => {
       <input
         type="text"
         className={cn(
-          inputVariants({ size: 'md', width: 'fixed' }),
+          searchInputVariants({ 
+            state: isSearching ? 'loading' : 'default',
+            size: 'md', 
+            width: 'fixed' 
+          }),
           'pl-4 pr-16' 
         )}
         placeholder="Search"

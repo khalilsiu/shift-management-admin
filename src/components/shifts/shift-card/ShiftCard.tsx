@@ -2,6 +2,7 @@
 
 import { useShifts } from '@/lib/hooks/useShifts'
 import { ShiftCardStatic } from './ShiftCardStatic'
+import { cn, shiftCardVariants, buttonVariants, checkboxVariants, getShiftCardState } from '@/lib/design-system'
 import type { Shift } from '@/types/shift'
 
 interface ShiftCardProps {
@@ -41,6 +42,7 @@ export const ShiftCard = ({ shift, isLoading = false }: ShiftCardProps) => {
     handleToggleSelection,
     isShiftSelected,
     canUpdateShift,
+    isLoading: isUpdatingShift,
   } = useShifts()
 
   // Return skeleton if loading (after hooks are called)
@@ -67,13 +69,24 @@ export const ShiftCard = ({ shift, isLoading = false }: ShiftCardProps) => {
   }
 
   return (
-    <div className={`flex items-center space-x-4 bg-white p-4 transition-all border-b border-gray-200 last:border-b-0 ${isSelected ? 'shadow-md' : 'hover:bg-gray-50'}`}>
+    <div className={cn(
+      shiftCardVariants({ 
+        state: getShiftCardState(shift, isSelected),
+        status: shift.status.toLowerCase() as 'pending' | 'confirmed' | 'declined'
+      })
+    )}>
       <input
         type="checkbox"
-        className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+        className={cn(
+          checkboxVariants({ 
+            size: 'md', 
+            color: 'primary',
+            state: !isPending ? 'disabled' : 'default'
+          })
+        )}
         checked={isSelected}
         onChange={handleCheckboxChange}
-        disabled={!isPending}
+        disabled={!isPending || isUpdatingShift}
         aria-label={`Select shift for ${shift.caregiver_name}`}
       />
 
@@ -82,7 +95,12 @@ export const ShiftCard = ({ shift, isLoading = false }: ShiftCardProps) => {
         {canUpdate && (
           <div className="flex items-center space-x-2">
             <button
-              className="inline-flex items-center px-3 py-1 bg-white border border-red-700 text-red-700 text-xs font-medium rounded hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
+              className={cn(
+                buttonVariants({ 
+                  variant: 'dangerOutline', 
+                  size: 'sm' 
+                })
+              )}
               onClick={handleDeclineClick}
               type="button"
               aria-label={`Decline shift for ${shift.caregiver_name}`}
@@ -91,7 +109,12 @@ export const ShiftCard = ({ shift, isLoading = false }: ShiftCardProps) => {
             </button>
 
             <button
-              className="inline-flex items-center px-3 py-1 bg-green-600 text-white text-xs font-medium rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors"
+              className={cn(
+                buttonVariants({ 
+                  variant: 'success', 
+                  size: 'sm' 
+                })
+              )}
               onClick={handleConfirmClick}
               type="button"
               aria-label={`Confirm shift for ${shift.caregiver_name}`}

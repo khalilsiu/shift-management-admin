@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { SearchHeaderStatic } from './SearchHeaderStatic'
 import { SearchInput } from './SearchInput'
-import { cn, inputVariants } from '@/lib/design-system'
+import { cn, searchInputVariants } from '@/lib/design-system'
 
 
 export const SearchHeader = () => {
@@ -13,7 +13,11 @@ export const SearchHeader = () => {
             <div className="h-4 w-4 bg-gray-300 rounded animate-pulse" />
           </div>
           <div className={cn(
-            inputVariants({ size: 'md', width: 'fixed' }),
+            searchInputVariants({ 
+              state: 'loading', 
+              size: 'md', 
+              width: 'fixed' 
+            }),
             'pl-4 pr-16 bg-gray-100 animate-pulse border-gray-200'
           )}>
           </div>
