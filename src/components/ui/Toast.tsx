@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { X, CheckCircle, XCircle, AlertTriangle, Info } from 'lucide-react'
-import { cn, toastVariants, colors, getAnimationClasses } from '@/lib/design-system'
+import { cn, toastVariants, getAnimationClasses, getSemanticColor } from '@/lib/design-system'
 import type { Notification } from '@/types/notification'
 
 interface ToastProps {
@@ -40,15 +40,15 @@ export const Toast = ({ notification, onRemove }: ToastProps) => {
     
     switch (notification.type) {
       case 'success':
-        return <CheckCircle {...iconProps} className={cn(iconProps.className, (colors.semantic.success as any).text)} />
+        return <CheckCircle {...iconProps} className={cn(iconProps.className, getSemanticColor('success', 'text'))} />
       case 'error':
-        return <XCircle {...iconProps} className={cn(iconProps.className, (colors.semantic.danger as any).text)} />
+        return <XCircle {...iconProps} className={cn(iconProps.className, getSemanticColor('danger', 'text'))} />
       case 'warning':
-        return <AlertTriangle {...iconProps} className={cn(iconProps.className, (colors.semantic.warning as any).text)} />
+        return <AlertTriangle {...iconProps} className={cn(iconProps.className, getSemanticColor('warning', 'text'))} />
       case 'info':
-        return <Info {...iconProps} className={cn(iconProps.className, (colors.semantic.primary as any).text)} />
+        return <Info {...iconProps} className={cn(iconProps.className, getSemanticColor('primary', 'text'))} />
       default:
-        return <Info {...iconProps} className={cn(iconProps.className, (colors.semantic.neutral as any).text)} />
+        return <Info {...iconProps} className={cn(iconProps.className, getSemanticColor('neutral', 'text'))} />
     }
   }
 

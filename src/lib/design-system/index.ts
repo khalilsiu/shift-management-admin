@@ -21,6 +21,25 @@ export const getStatusStyles = (shiftStatus: 'PENDING' | 'CONFIRMED' | 'DECLINED
   return statusMap[shiftStatus] || status.pending
 }
 
+// Type for semantic color sets
+type SemanticColorSet = {
+  50?: string;
+  100?: string;
+  200?: string;
+  300?: string;
+  400?: string;
+  500?: string;
+  600?: string;
+  700?: string;
+  800?: string;
+  900?: string;
+  text?: string;
+  textDark?: string;
+  border?: string;
+  ring?: string;
+  [key: string]: string | undefined;
+}
+
 /**
  * Get semantic color classes by type and shade
  */
@@ -29,18 +48,18 @@ export const getSemanticColor = (
   variant: 'bg' | 'text' | 'border' | 'ring' = 'bg',
   shade?: string
 ) => {
-  const colorSet = colors.semantic[type]
+  const colorSet = colors.semantic[type] as SemanticColorSet
   
   if (shade && shade in colorSet) {
-    return colorSet[shade as keyof typeof colorSet]
+    return colorSet[shade]
   }
   
   // Default variants
   const variantMap = {
-    bg: (colorSet as any)[500] || (colorSet as any)[100],
-    text: (colorSet as any).text || (colorSet as any).textDark,
-    border: (colorSet as any).border,
-    ring: (colorSet as any).ring,
+    bg: colorSet['500'] || colorSet['100'],
+    text: colorSet.text || colorSet.textDark,
+    border: colorSet.border,
+    ring: colorSet.ring,
   }
   
   return variantMap[variant]
