@@ -1,14 +1,11 @@
-import { useOptimistic, useTransition, useEffect } from 'react'
+import { useOptimistic, useTransition } from 'react'
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import {
   toggleShiftSelection,
   selectAllShifts,
   clearSelection,
-  setError,
-  clearError,
   selectShifts,
   selectSelectedShifts,
-  selectError,
 } from '@/lib/store/shiftsSlice'
 import { updateShiftStatus, batchUpdateShifts } from '@/lib/actions/shifts'
 import { useShiftNotifications } from './useShiftNotifications'
@@ -32,7 +29,6 @@ export const useShifts = () => {
   // RTK selectors for client state only
   const shifts = useAppSelector(selectShifts)
   const selectedShifts = useAppSelector(selectSelectedShifts)
-  const error = useAppSelector(selectError)
 
   // React useOptimistic for Server Action optimistic updates
   const [optimisticShifts, updateOptimisticShifts] = useOptimistic<
@@ -73,12 +69,6 @@ export const useShifts = () => {
   const hasSelectedShifts = selectedShifts.length > 0
   const selectedCount = selectedShifts.length
 
-  useEffect(() => {
-    if (error) {
-      notifyShiftUpdateError('System', error)
-      dispatch(clearError())
-    }
-  }, [error, dispatch, notifyShiftUpdateError])
 
   // Server Action with useOptimistic
   const handleUpdateShift = (shiftId: string, status: 'CONFIRMED' | 'DECLINED', updatedBy: string = 'admin_001') => {
@@ -94,13 +84,10 @@ export const useShifts = () => {
         // 2. Optimistic update using React's useOptimistic (inside transition)
         updateOptimisticShifts({ type: 'update', shiftId, status })
 
-        dispatch(clearError())
-
         // 3. Execute Server Action
         const result = await updateShiftStatus(shiftId, status, updatedBy)
 
         if (!result.success) {
-          dispatch(setError(result.error || 'Failed to update shift'))
           notifyShiftUpdateError(caregiverName, result.error)
           // useOptimistic automatically reverts on Server Action completion
         } else {
@@ -109,7 +96,6 @@ export const useShifts = () => {
         }
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-        dispatch(setError(errorMessage))
         notifyShiftUpdateError(caregiverName, errorMessage)
         // useOptimistic automatically reverts on error
       }
@@ -126,13 +112,10 @@ export const useShifts = () => {
         // 2. Optimistic update
         updateOptimisticShifts({ type: 'batchUpdate', shiftIds, status })
 
-        dispatch(clearError())
-
         // 3. Execute Server Action
         const result = await batchUpdateShifts(shiftIds, status, updatedBy)
 
         if (!result.success) {
-          dispatch(setError(result.error || 'Failed to batch update shifts'))
           notifyBatchUpdateError(shiftIds.length, result.error)
         } else {
           dispatch(clearSelection())
@@ -148,7 +131,6 @@ export const useShifts = () => {
         }
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-        dispatch(setError(errorMessage))
         notifyBatchUpdateError(shiftIds.length, errorMessage)
       }
     })
