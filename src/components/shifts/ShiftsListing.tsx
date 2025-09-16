@@ -5,15 +5,13 @@ import { useShifts } from '@/lib/hooks/useShifts'
 import { MonthGroup } from './month-group'
 import { HorizontalScrollContainer } from '@/components/ui/HorizontalScrollContainer'
 import { format, parseISO } from 'date-fns'
-import { Loader2, AlertCircle } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { cn, containerVariants, spacing, layout } from '@/lib/design-system'
 
 export const ShiftsListing = () => {
   const {
     shifts,
     isLoading,
-    error,
-    handleClearError,
   } = useShifts()
 
 
@@ -52,28 +50,6 @@ export const ShiftsListing = () => {
 
   return (
     <div>
-      {/* Error message */}
-      {error && (
-        <div className={cn(
-          containerVariants({ spacing: 'normal' }),
-          'mt-4 p-4 bg-red-50 border border-red-200 rounded-lg'
-        )}>
-          <div className="flex items-start space-x-3">
-            <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
-            <div className="flex-1">
-              <p className="text-sm text-red-700">{error}</p>
-              <button
-                className="mt-2 text-sm text-red-600 hover:text-red-800 underline"
-                onClick={handleClearError}
-                type="button"
-              >
-                Dismiss
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Main content */}
       <div className={cn(containerVariants({ spacing: 'normal' }), spacing.section.mobile, spacing.section.tablet)}>
         {shifts.length === 0 ? (

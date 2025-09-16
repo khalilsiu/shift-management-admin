@@ -1,4 +1,4 @@
-import { useOptimistic, useTransition } from 'react'
+import { useOptimistic, useTransition, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import {
   toggleShiftSelection,
@@ -72,6 +72,13 @@ export const useShifts = () => {
 
   const hasSelectedShifts = selectedShifts.length > 0
   const selectedCount = selectedShifts.length
+
+  useEffect(() => {
+    if (error) {
+      notifyShiftUpdateError('System', error)
+      dispatch(clearError())
+    }
+  }, [error, dispatch, notifyShiftUpdateError])
 
   // Server Action with useOptimistic
   const handleUpdateShift = (shiftId: string, status: 'CONFIRMED' | 'DECLINED', updatedBy: string = 'admin_001') => {
@@ -160,10 +167,6 @@ export const useShifts = () => {
     dispatch(clearSelection())
   }
 
-  const handleClearError = () => {
-    dispatch(clearError())
-  }
-
   return {
     // Optimistic state for RSC server actions
     shifts: optimisticShifts,
@@ -172,7 +175,6 @@ export const useShifts = () => {
 
     // RTK UI states
     isLoading: isPending, // Server Action pending state
-    error,
 
     // Derived states
     isShiftSelected,
@@ -188,6 +190,5 @@ export const useShifts = () => {
     handleToggleSelection,
     handleSelectAll,
     handleClearSelection,
-    handleClearError,
   }
 }
