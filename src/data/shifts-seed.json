@@ -1,0 +1,874 @@
+{
+  "shifts": [
+    {
+      "id": "shift_001",
+      "caregiver_name": "Alice Johnson",
+      "role": "ST",
+      "start_time": "2024-11-15T08:00:00Z",
+      "end_time": "2024-11-15T16:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-10T10:30:00Z",
+      "updated_at": "2024-11-10T10:30:00Z"
+    },
+    {
+      "id": "shift_002",
+      "caregiver_name": "Bob Smith",
+      "role": "EN",
+      "start_time": "2024-11-15T16:00:00Z",
+      "end_time": "2024-11-16T00:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-12T14:20:00Z",
+      "updated_at": "2024-11-12T14:20:00Z"
+    },
+    {
+      "id": "shift_003",
+      "caregiver_name": "Carol Davis",
+      "role": "ST",
+      "start_time": "2024-11-16T00:00:00Z",
+      "end_time": "2024-11-16T08:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-11T18:45:00Z",
+      "updated_at": "2024-11-11T18:45:00Z"
+    },
+    {
+      "id": "shift_004",
+      "caregiver_name": "David Wilson",
+      "role": "EN",
+      "start_time": "2024-11-18T09:00:00Z",
+      "end_time": "2024-11-18T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-13T11:15:00Z",
+      "updated_at": "2024-11-13T11:15:00Z"
+    },
+    {
+      "id": "shift_005",
+      "caregiver_name": "Emma Brown",
+      "role": "ST",
+      "start_time": "2024-11-20T06:00:00Z",
+      "end_time": "2024-11-20T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-14T08:30:00Z",
+      "updated_at": "2024-11-14T08:30:00Z"
+    },
+    {
+      "id": "shift_006",
+      "caregiver_name": "Frank Miller",
+      "role": "EN",
+      "start_time": "2024-11-22T14:00:00Z",
+      "end_time": "2024-11-22T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-15T13:20:00Z",
+      "updated_at": "2024-11-15T13:20:00Z"
+    },
+    {
+      "id": "shift_007",
+      "caregiver_name": "Grace Lee",
+      "role": "ST",
+      "start_time": "2024-11-25T10:00:00Z",
+      "end_time": "2024-11-25T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-18T15:10:00Z",
+      "updated_at": "2024-11-18T15:10:00Z"
+    },
+    {
+      "id": "shift_008",
+      "caregiver_name": "Helen Chang",
+      "role": "EN",
+      "start_time": "2024-11-28T22:00:00Z",
+      "end_time": "2024-11-29T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-20T12:00:00Z",
+      "updated_at": "2024-11-20T12:00:00Z"
+    },
+    {
+      "id": "shift_009",
+      "caregiver_name": "Ian Rodriguez",
+      "role": "ST",
+      "start_time": "2024-11-30T08:30:00Z",
+      "end_time": "2024-11-30T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-22T09:45:00Z",
+      "updated_at": "2024-11-22T09:45:00Z"
+    },
+    {
+      "id": "shift_010",
+      "caregiver_name": "Julia Martinez",
+      "role": "EN",
+      "start_time": "2024-12-01T09:00:00Z",
+      "end_time": "2024-12-01T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-25T11:15:00Z",
+      "updated_at": "2024-11-25T11:15:00Z"
+    },
+    {
+      "id": "shift_011",
+      "caregiver_name": "Kevin Thompson",
+      "role": "ST",
+      "start_time": "2024-12-03T06:00:00Z",
+      "end_time": "2024-12-03T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-28T08:30:00Z",
+      "updated_at": "2024-11-28T08:30:00Z"
+    },
+    {
+      "id": "shift_012",
+      "caregiver_name": "Laura White",
+      "role": "EN",
+      "start_time": "2024-12-05T14:00:00Z",
+      "end_time": "2024-12-05T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-11-30T13:20:00Z",
+      "updated_at": "2024-11-30T13:20:00Z"
+    },
+    {
+      "id": "shift_013",
+      "caregiver_name": "Michael Brown",
+      "role": "ST",
+      "start_time": "2024-12-08T10:00:00Z",
+      "end_time": "2024-12-08T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-02T15:10:00Z",
+      "updated_at": "2024-12-02T15:10:00Z"
+    },
+    {
+      "id": "shift_014",
+      "caregiver_name": "Nancy Garcia",
+      "role": "EN",
+      "start_time": "2024-12-10T22:00:00Z",
+      "end_time": "2024-12-11T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-05T12:00:00Z",
+      "updated_at": "2024-12-05T12:00:00Z"
+    },
+    {
+      "id": "shift_015",
+      "caregiver_name": "Oscar Kim",
+      "role": "ST",
+      "start_time": "2024-12-12T08:30:00Z",
+      "end_time": "2024-12-12T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-07T09:45:00Z",
+      "updated_at": "2024-12-07T09:45:00Z"
+    },
+    {
+      "id": "shift_016",
+      "caregiver_name": "Patricia Lopez",
+      "role": "EN",
+      "start_time": "2024-12-15T14:00:00Z",
+      "end_time": "2024-12-15T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-10T13:20:00Z",
+      "updated_at": "2024-12-10T13:20:00Z"
+    },
+    {
+      "id": "shift_017",
+      "caregiver_name": "Quinn Anderson",
+      "role": "ST",
+      "start_time": "2024-12-18T06:00:00Z",
+      "end_time": "2024-12-18T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-12T08:30:00Z",
+      "updated_at": "2024-12-12T08:30:00Z"
+    },
+    {
+      "id": "shift_018",
+      "caregiver_name": "Rachel Turner",
+      "role": "EN",
+      "start_time": "2024-12-20T10:00:00Z",
+      "end_time": "2024-12-20T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-15T15:10:00Z",
+      "updated_at": "2024-12-15T15:10:00Z"
+    },
+    {
+      "id": "shift_019",
+      "caregiver_name": "Samuel Lee",
+      "role": "ST",
+      "start_time": "2024-12-22T22:00:00Z",
+      "end_time": "2024-12-23T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-18T12:00:00Z",
+      "updated_at": "2024-12-18T12:00:00Z"
+    },
+    {
+      "id": "shift_020",
+      "caregiver_name": "Tina Wilson",
+      "role": "EN",
+      "start_time": "2024-12-25T08:30:00Z",
+      "end_time": "2024-12-25T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-20T09:45:00Z",
+      "updated_at": "2024-12-20T09:45:00Z"
+    },
+    {
+      "id": "shift_021",
+      "caregiver_name": "Alice Johnson",
+      "role": "ST",
+      "start_time": "2025-01-02T08:00:00Z",
+      "end_time": "2025-01-02T16:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-28T10:30:00Z",
+      "updated_at": "2024-12-28T10:30:00Z"
+    },
+    {
+      "id": "shift_022",
+      "caregiver_name": "Bob Smith",
+      "role": "EN",
+      "start_time": "2025-01-05T16:00:00Z",
+      "end_time": "2025-01-06T00:00:00Z",
+      "status": "PENDING",
+      "created_at": "2024-12-30T14:20:00Z",
+      "updated_at": "2024-12-30T14:20:00Z"
+    },
+    {
+      "id": "shift_023",
+      "caregiver_name": "Carol Davis",
+      "role": "ST",
+      "start_time": "2025-01-08T00:00:00Z",
+      "end_time": "2025-01-08T08:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-02T18:45:00Z",
+      "updated_at": "2025-01-02T18:45:00Z"
+    },
+    {
+      "id": "shift_024",
+      "caregiver_name": "David Wilson",
+      "role": "EN",
+      "start_time": "2025-01-10T09:00:00Z",
+      "end_time": "2025-01-10T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-05T11:15:00Z",
+      "updated_at": "2025-01-05T11:15:00Z"
+    },
+    {
+      "id": "shift_025",
+      "caregiver_name": "Emma Brown",
+      "role": "ST",
+      "start_time": "2025-01-12T06:00:00Z",
+      "end_time": "2025-01-12T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-08T08:30:00Z",
+      "updated_at": "2025-01-08T08:30:00Z"
+    },
+    {
+      "id": "shift_026",
+      "caregiver_name": "Frank Miller",
+      "role": "EN",
+      "start_time": "2025-01-15T14:00:00Z",
+      "end_time": "2025-01-15T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-10T13:20:00Z",
+      "updated_at": "2025-01-10T13:20:00Z"
+    },
+    {
+      "id": "shift_027",
+      "caregiver_name": "Grace Lee",
+      "role": "ST",
+      "start_time": "2025-01-18T10:00:00Z",
+      "end_time": "2025-01-18T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-12T15:10:00Z",
+      "updated_at": "2025-01-12T15:10:00Z"
+    },
+    {
+      "id": "shift_028",
+      "caregiver_name": "Helen Chang",
+      "role": "EN",
+      "start_time": "2025-01-20T22:00:00Z",
+      "end_time": "2025-01-21T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-15T12:00:00Z",
+      "updated_at": "2025-01-15T12:00:00Z"
+    },
+    {
+      "id": "shift_029",
+      "caregiver_name": "Ian Rodriguez",
+      "role": "ST",
+      "start_time": "2025-01-22T08:30:00Z",
+      "end_time": "2025-01-22T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-18T09:45:00Z",
+      "updated_at": "2025-01-18T09:45:00Z"
+    },
+    {
+      "id": "shift_030",
+      "caregiver_name": "Julia Martinez",
+      "role": "EN",
+      "start_time": "2025-01-25T09:00:00Z",
+      "end_time": "2025-01-25T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-20T11:15:00Z",
+      "updated_at": "2025-01-20T11:15:00Z"
+    },
+    {
+      "id": "shift_031",
+      "caregiver_name": "Kevin Thompson",
+      "role": "ST",
+      "start_time": "2025-02-01T06:00:00Z",
+      "end_time": "2025-02-01T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-25T08:30:00Z",
+      "updated_at": "2025-01-25T08:30:00Z"
+    },
+    {
+      "id": "shift_032",
+      "caregiver_name": "Laura White",
+      "role": "EN",
+      "start_time": "2025-02-03T14:00:00Z",
+      "end_time": "2025-02-03T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-28T13:20:00Z",
+      "updated_at": "2025-01-28T13:20:00Z"
+    },
+    {
+      "id": "shift_033",
+      "caregiver_name": "Michael Brown",
+      "role": "ST",
+      "start_time": "2025-02-05T10:00:00Z",
+      "end_time": "2025-02-05T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-01-30T15:10:00Z",
+      "updated_at": "2025-01-30T15:10:00Z"
+    },
+    {
+      "id": "shift_034",
+      "caregiver_name": "Nancy Garcia",
+      "role": "EN",
+      "start_time": "2025-02-08T22:00:00Z",
+      "end_time": "2025-02-09T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-02T12:00:00Z",
+      "updated_at": "2025-02-02T12:00:00Z"
+    },
+    {
+      "id": "shift_035",
+      "caregiver_name": "Oscar Kim",
+      "role": "ST",
+      "start_time": "2025-02-10T08:30:00Z",
+      "end_time": "2025-02-10T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-05T09:45:00Z",
+      "updated_at": "2025-02-05T09:45:00Z"
+    },
+    {
+      "id": "shift_036",
+      "caregiver_name": "Patricia Lopez",
+      "role": "EN",
+      "start_time": "2025-02-12T14:00:00Z",
+      "end_time": "2025-02-12T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-08T13:20:00Z",
+      "updated_at": "2025-02-08T13:20:00Z"
+    },
+    {
+      "id": "shift_037",
+      "caregiver_name": "Quinn Anderson",
+      "role": "ST",
+      "start_time": "2025-02-15T06:00:00Z",
+      "end_time": "2025-02-15T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-10T08:30:00Z",
+      "updated_at": "2025-02-10T08:30:00Z"
+    },
+    {
+      "id": "shift_038",
+      "caregiver_name": "Rachel Turner",
+      "role": "EN",
+      "start_time": "2025-02-18T10:00:00Z",
+      "end_time": "2025-02-18T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-12T15:10:00Z",
+      "updated_at": "2025-02-12T15:10:00Z"
+    },
+    {
+      "id": "shift_039",
+      "caregiver_name": "Samuel Lee",
+      "role": "ST",
+      "start_time": "2025-02-20T22:00:00Z",
+      "end_time": "2025-02-21T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-15T12:00:00Z",
+      "updated_at": "2025-02-15T12:00:00Z"
+    },
+    {
+      "id": "shift_040",
+      "caregiver_name": "Tina Wilson",
+      "role": "EN",
+      "start_time": "2025-02-25T08:30:00Z",
+      "end_time": "2025-02-25T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-20T09:45:00Z",
+      "updated_at": "2025-02-20T09:45:00Z"
+    },
+    {
+      "id": "shift_041",
+      "caregiver_name": "Alice Johnson",
+      "role": "ST",
+      "start_time": "2025-03-03T08:00:00Z",
+      "end_time": "2025-03-03T16:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-25T10:30:00Z",
+      "updated_at": "2025-02-25T10:30:00Z"
+    },
+    {
+      "id": "shift_042",
+      "caregiver_name": "Bob Smith",
+      "role": "EN",
+      "start_time": "2025-03-05T16:00:00Z",
+      "end_time": "2025-03-06T00:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-02-28T14:20:00Z",
+      "updated_at": "2025-02-28T14:20:00Z"
+    },
+    {
+      "id": "shift_043",
+      "caregiver_name": "Carol Davis",
+      "role": "ST",
+      "start_time": "2025-03-08T00:00:00Z",
+      "end_time": "2025-03-08T08:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-02T18:45:00Z",
+      "updated_at": "2025-03-02T18:45:00Z"
+    },
+    {
+      "id": "shift_044",
+      "caregiver_name": "David Wilson",
+      "role": "EN",
+      "start_time": "2025-03-10T09:00:00Z",
+      "end_time": "2025-03-10T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-05T11:15:00Z",
+      "updated_at": "2025-03-05T11:15:00Z"
+    },
+    {
+      "id": "shift_045",
+      "caregiver_name": "Emma Brown",
+      "role": "ST",
+      "start_time": "2025-03-12T06:00:00Z",
+      "end_time": "2025-03-12T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-08T08:30:00Z",
+      "updated_at": "2025-03-08T08:30:00Z"
+    },
+    {
+      "id": "shift_046",
+      "caregiver_name": "Frank Miller",
+      "role": "EN",
+      "start_time": "2025-03-15T14:00:00Z",
+      "end_time": "2025-03-15T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-10T13:20:00Z",
+      "updated_at": "2025-03-10T13:20:00Z"
+    },
+    {
+      "id": "shift_047",
+      "caregiver_name": "Grace Lee",
+      "role": "ST",
+      "start_time": "2025-03-18T10:00:00Z",
+      "end_time": "2025-03-18T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-12T15:10:00Z",
+      "updated_at": "2025-03-12T15:10:00Z"
+    },
+    {
+      "id": "shift_048",
+      "caregiver_name": "Helen Chang",
+      "role": "EN",
+      "start_time": "2025-03-20T22:00:00Z",
+      "end_time": "2025-03-21T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-15T12:00:00Z",
+      "updated_at": "2025-03-15T12:00:00Z"
+    },
+    {
+      "id": "shift_049",
+      "caregiver_name": "Ian Rodriguez",
+      "role": "ST",
+      "start_time": "2025-03-22T08:30:00Z",
+      "end_time": "2025-03-22T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-18T09:45:00Z",
+      "updated_at": "2025-03-18T09:45:00Z"
+    },
+    {
+      "id": "shift_050",
+      "caregiver_name": "Julia Martinez",
+      "role": "EN",
+      "start_time": "2025-03-25T09:00:00Z",
+      "end_time": "2025-03-25T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-20T11:15:00Z",
+      "updated_at": "2025-03-20T11:15:00Z"
+    },
+    {
+      "id": "shift_051",
+      "caregiver_name": "Kevin Thompson",
+      "role": "ST",
+      "start_time": "2025-03-28T06:00:00Z",
+      "end_time": "2025-03-28T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-22T08:30:00Z",
+      "updated_at": "2025-03-22T08:30:00Z"
+    },
+    {
+      "id": "shift_052",
+      "caregiver_name": "Laura White",
+      "role": "EN",
+      "start_time": "2025-03-30T14:00:00Z",
+      "end_time": "2025-03-30T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-25T13:20:00Z",
+      "updated_at": "2025-03-25T13:20:00Z"
+    },
+    {
+      "id": "shift_053",
+      "caregiver_name": "Michael Brown",
+      "role": "ST",
+      "start_time": "2025-04-02T10:00:00Z",
+      "end_time": "2025-04-02T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-28T15:10:00Z",
+      "updated_at": "2025-03-28T15:10:00Z"
+    },
+    {
+      "id": "shift_054",
+      "caregiver_name": "Nancy Garcia",
+      "role": "EN",
+      "start_time": "2025-04-05T22:00:00Z",
+      "end_time": "2025-04-06T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-03-30T12:00:00Z",
+      "updated_at": "2025-03-30T12:00:00Z"
+    },
+    {
+      "id": "shift_055",
+      "caregiver_name": "Oscar Kim",
+      "role": "ST",
+      "start_time": "2025-04-08T08:30:00Z",
+      "end_time": "2025-04-08T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-02T09:45:00Z",
+      "updated_at": "2025-04-02T09:45:00Z"
+    },
+    {
+      "id": "shift_056",
+      "caregiver_name": "Patricia Lopez",
+      "role": "EN",
+      "start_time": "2025-04-10T14:00:00Z",
+      "end_time": "2025-04-10T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-05T13:20:00Z",
+      "updated_at": "2025-04-05T13:20:00Z"
+    },
+    {
+      "id": "shift_057",
+      "caregiver_name": "Quinn Anderson",
+      "role": "ST",
+      "start_time": "2025-04-12T06:00:00Z",
+      "end_time": "2025-04-12T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-08T08:30:00Z",
+      "updated_at": "2025-04-08T08:30:00Z"
+    },
+    {
+      "id": "shift_058",
+      "caregiver_name": "Rachel Turner",
+      "role": "EN",
+      "start_time": "2025-04-15T10:00:00Z",
+      "end_time": "2025-04-15T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-10T15:10:00Z",
+      "updated_at": "2025-04-10T15:10:00Z"
+    },
+    {
+      "id": "shift_059",
+      "caregiver_name": "Samuel Lee",
+      "role": "ST",
+      "start_time": "2025-04-18T22:00:00Z",
+      "end_time": "2025-04-19T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-12T12:00:00Z",
+      "updated_at": "2025-04-12T12:00:00Z"
+    },
+    {
+      "id": "shift_060",
+      "caregiver_name": "Tina Wilson",
+      "role": "EN",
+      "start_time": "2025-04-22T08:30:00Z",
+      "end_time": "2025-04-22T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-15T09:45:00Z",
+      "updated_at": "2025-04-15T09:45:00Z"
+    },
+    {
+      "id": "shift_061",
+      "caregiver_name": "Alice Johnson",
+      "role": "ST",
+      "start_time": "2025-04-25T08:00:00Z",
+      "end_time": "2025-04-25T16:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-18T10:30:00Z",
+      "updated_at": "2025-04-18T10:30:00Z"
+    },
+    {
+      "id": "shift_062",
+      "caregiver_name": "Bob Smith",
+      "role": "EN",
+      "start_time": "2025-04-28T16:00:00Z",
+      "end_time": "2025-04-29T00:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-22T14:20:00Z",
+      "updated_at": "2025-04-22T14:20:00Z"
+    },
+    {
+      "id": "shift_063",
+      "caregiver_name": "Carol Davis",
+      "role": "ST",
+      "start_time": "2025-05-01T00:00:00Z",
+      "end_time": "2025-05-01T08:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-25T18:45:00Z",
+      "updated_at": "2025-04-25T18:45:00Z"
+    },
+    {
+      "id": "shift_064",
+      "caregiver_name": "David Wilson",
+      "role": "EN",
+      "start_time": "2025-05-03T09:00:00Z",
+      "end_time": "2025-05-03T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-04-28T11:15:00Z",
+      "updated_at": "2025-04-28T11:15:00Z"
+    },
+    {
+      "id": "shift_065",
+      "caregiver_name": "Emma Brown",
+      "role": "ST",
+      "start_time": "2025-05-05T06:00:00Z",
+      "end_time": "2025-05-05T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-01T08:30:00Z",
+      "updated_at": "2025-05-01T08:30:00Z"
+    },
+    {
+      "id": "shift_066",
+      "caregiver_name": "Frank Miller",
+      "role": "EN",
+      "start_time": "2025-05-08T14:00:00Z",
+      "end_time": "2025-05-08T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-03T13:20:00Z",
+      "updated_at": "2025-05-03T13:20:00Z"
+    },
+    {
+      "id": "shift_067",
+      "caregiver_name": "Grace Lee",
+      "role": "ST",
+      "start_time": "2025-05-10T10:00:00Z",
+      "end_time": "2025-05-10T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-05T15:10:00Z",
+      "updated_at": "2025-05-05T15:10:00Z"
+    },
+    {
+      "id": "shift_068",
+      "caregiver_name": "Helen Chang",
+      "role": "EN",
+      "start_time": "2025-05-12T22:00:00Z",
+      "end_time": "2025-05-13T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-08T12:00:00Z",
+      "updated_at": "2025-05-08T12:00:00Z"
+    },
+    {
+      "id": "shift_069",
+      "caregiver_name": "Ian Rodriguez",
+      "role": "ST",
+      "start_time": "2025-05-15T08:30:00Z",
+      "end_time": "2025-05-15T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-10T09:45:00Z",
+      "updated_at": "2025-05-10T09:45:00Z"
+    },
+    {
+      "id": "shift_070",
+      "caregiver_name": "Julia Martinez",
+      "role": "EN",
+      "start_time": "2025-05-18T09:00:00Z",
+      "end_time": "2025-05-18T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-12T11:15:00Z",
+      "updated_at": "2025-05-12T11:15:00Z"
+    },
+    {
+      "id": "shift_071",
+      "caregiver_name": "Kevin Thompson",
+      "role": "ST",
+      "start_time": "2025-05-20T06:00:00Z",
+      "end_time": "2025-05-20T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-15T08:30:00Z",
+      "updated_at": "2025-05-15T08:30:00Z"
+    },
+    {
+      "id": "shift_072",
+      "caregiver_name": "Laura White",
+      "role": "EN",
+      "start_time": "2025-05-22T14:00:00Z",
+      "end_time": "2025-05-22T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-18T13:20:00Z",
+      "updated_at": "2025-05-18T13:20:00Z"
+    },
+    {
+      "id": "shift_073",
+      "caregiver_name": "Michael Brown",
+      "role": "ST",
+      "start_time": "2025-05-25T10:00:00Z",
+      "end_time": "2025-05-25T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-20T15:10:00Z",
+      "updated_at": "2025-05-20T15:10:00Z"
+    },
+    {
+      "id": "shift_074",
+      "caregiver_name": "Nancy Garcia",
+      "role": "EN",
+      "start_time": "2025-05-28T22:00:00Z",
+      "end_time": "2025-05-29T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-22T12:00:00Z",
+      "updated_at": "2025-05-22T12:00:00Z"
+    },
+    {
+      "id": "shift_075",
+      "caregiver_name": "Oscar Kim",
+      "role": "ST",
+      "start_time": "2025-05-30T08:30:00Z",
+      "end_time": "2025-05-30T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-25T09:45:00Z",
+      "updated_at": "2025-05-25T09:45:00Z"
+    },
+    {
+      "id": "shift_076",
+      "caregiver_name": "Patricia Lopez",
+      "role": "EN",
+      "start_time": "2025-06-02T14:00:00Z",
+      "end_time": "2025-06-02T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-28T13:20:00Z",
+      "updated_at": "2025-05-28T13:20:00Z"
+    },
+    {
+      "id": "shift_077",
+      "caregiver_name": "Quinn Anderson",
+      "role": "ST",
+      "start_time": "2025-06-05T06:00:00Z",
+      "end_time": "2025-06-05T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-05-30T08:30:00Z",
+      "updated_at": "2025-05-30T08:30:00Z"
+    },
+    {
+      "id": "shift_078",
+      "caregiver_name": "Rachel Turner",
+      "role": "EN",
+      "start_time": "2025-06-08T10:00:00Z",
+      "end_time": "2025-06-08T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-02T15:10:00Z",
+      "updated_at": "2025-06-02T15:10:00Z"
+    },
+    {
+      "id": "shift_079",
+      "caregiver_name": "Samuel Lee",
+      "role": "ST",
+      "start_time": "2025-06-10T22:00:00Z",
+      "end_time": "2025-06-11T06:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-05T12:00:00Z",
+      "updated_at": "2025-06-05T12:00:00Z"
+    },
+    {
+      "id": "shift_080",
+      "caregiver_name": "Tina Wilson",
+      "role": "EN",
+      "start_time": "2025-06-12T08:30:00Z",
+      "end_time": "2025-06-12T16:30:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-08T09:45:00Z",
+      "updated_at": "2025-06-08T09:45:00Z"
+    },
+    {
+      "id": "shift_081",
+      "caregiver_name": "Alice Johnson",
+      "role": "ST",
+      "start_time": "2025-06-15T08:00:00Z",
+      "end_time": "2025-06-15T16:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-10T10:30:00Z",
+      "updated_at": "2025-06-10T10:30:00Z"
+    },
+    {
+      "id": "shift_082",
+      "caregiver_name": "Bob Smith",
+      "role": "EN",
+      "start_time": "2025-06-18T16:00:00Z",
+      "end_time": "2025-06-19T00:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-12T14:20:00Z",
+      "updated_at": "2025-06-12T14:20:00Z"
+    },
+    {
+      "id": "shift_083",
+      "caregiver_name": "Carol Davis",
+      "role": "ST",
+      "start_time": "2025-06-20T00:00:00Z",
+      "end_time": "2025-06-20T08:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-15T18:45:00Z",
+      "updated_at": "2025-06-15T18:45:00Z"
+    },
+    {
+      "id": "shift_084",
+      "caregiver_name": "David Wilson",
+      "role": "EN",
+      "start_time": "2025-06-22T09:00:00Z",
+      "end_time": "2025-06-22T17:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-18T11:15:00Z",
+      "updated_at": "2025-06-18T11:15:00Z"
+    },
+    {
+      "id": "shift_085",
+      "caregiver_name": "Emma Brown",
+      "role": "ST",
+      "start_time": "2025-06-25T06:00:00Z",
+      "end_time": "2025-06-25T14:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-20T08:30:00Z",
+      "updated_at": "2025-06-20T08:30:00Z"
+    },
+    {
+      "id": "shift_086",
+      "caregiver_name": "Frank Miller",
+      "role": "EN",
+      "start_time": "2025-06-28T14:00:00Z",
+      "end_time": "2025-06-28T22:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-22T13:20:00Z",
+      "updated_at": "2025-06-22T13:20:00Z"
+    },
+    {
+      "id": "shift_087",
+      "caregiver_name": "Grace Lee",
+      "role": "ST",
+      "start_time": "2025-06-30T10:00:00Z",
+      "end_time": "2025-06-30T18:00:00Z",
+      "status": "PENDING",
+      "created_at": "2025-06-25T15:10:00Z",
+      "updated_at": "2025-06-25T15:10:00Z"
+    }
+  ]
+}
