@@ -26,6 +26,7 @@ export const useShifts = () => {
     notifyBatchUpdateError,
     notifyPartialBatchUpdate,
     notifyOptimisticUpdate,
+    notifyBatchOptimisticUpdate,
   } = useShiftNotifications()
 
   // RTK selectors for client state only
@@ -78,11 +79,11 @@ export const useShifts = () => {
     const shift = optimisticShifts.find(s => s.id === shiftId)
     const caregiverName = shift?.caregiver_name || 'Unknown'
 
+    // 1. Show optimistic notification
+    notifyOptimisticUpdate(caregiverName, status)
+
     startTransition(async () => {
       try {
-        // 1. Show optimistic notification
-        notifyOptimisticUpdate(caregiverName, status)
-
         // 2. Optimistic update using React's useOptimistic (inside transition)
         updateOptimisticShifts({ type: 'update', shiftId, status })
 
@@ -110,14 +111,17 @@ export const useShifts = () => {
 
   // Server Action with useOptimistic
   const handleBatchUpdate = (shiftIds: string[], status: 'CONFIRMED' | 'DECLINED', updatedBy: string = 'admin_001') => {
+    // 1. Show batch optimistic notification
+    notifyBatchOptimisticUpdate(shiftIds.length, status)
+
     startTransition(async () => {
       try {
-        // 1. Optimistic update
+        // 2. Optimistic update
         updateOptimisticShifts({ type: 'batchUpdate', shiftIds, status })
 
         dispatch(clearError())
 
-        // 2. Execute Server Action
+        // 3. Execute Server Action
         const result = await batchUpdateShifts(shiftIds, status, updatedBy)
 
         if (!result.success) {

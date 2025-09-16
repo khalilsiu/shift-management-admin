@@ -101,12 +101,28 @@ export const useShiftNotifications = () => {
     status: 'CONFIRMED' | 'DECLINED'
   ) => {
     const statusText = toProperCase(status)
-    
     addNotification({
       type: 'info',
       title: 'Updating Shift...',
       message: `${statusText}ing ${caregiverName}'s shift`,
-      duration: 2000, // Short duration for optimistic updates
+      duration: 3000, // Short duration for optimistic updates
+    })
+  }
+
+  /**
+   * Show info notification for batch optimistic updates
+   */
+  const notifyBatchOptimisticUpdate = (
+    count: number,
+    status: 'CONFIRMED' | 'DECLINED'
+  ) => {
+    const statusText = toProperCase(status)
+    
+    addNotification({
+      type: 'info',
+      title: 'Updating Shifts...',
+      message: `${statusText}ing ${count} shift${count !== 1 ? 's' : ''}...`,
+      duration: 3000, // Short duration for optimistic updates
     })
   }
 
@@ -117,5 +133,6 @@ export const useShiftNotifications = () => {
     notifyBatchUpdateError,
     notifyPartialBatchUpdate,
     notifyOptimisticUpdate,
+    notifyBatchOptimisticUpdate,
   }
 }
